@@ -1,0 +1,199 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  
+  /* Custom brand colors from your old website */
+  --black: #080444;
+  --purple: #BF5AF2;
+  --emeraldlight: #3ee680;
+  --darkgreen: #15803d;
+  
+  /* RGB versions for opacity usage */
+  --emeraldlight-rgb: 62, 230, 128;
+  --darkgreen-rgb: 21, 128, 61;
+  --black-rgb: 8, 4, 68;
+  --purple-rgb: 191, 90, 242;
+
+  /* shadcn/ui required variables for button component */
+  --primary: 24 9.8% 10%;           /* Dark primary color */
+  --primary-foreground: 0 0% 98%;   /* Light text on primary */
+  --secondary: 60 4.8% 95.9%;       /* Light secondary background */
+  --secondary-foreground: 24 9.8% 10%; /* Dark text on secondary */
+  --accent: var(--emeraldlight);    /* Use your brand green for accent */
+  --accent-foreground: #ffffff;     /* White text on green accent */
+  --destructive: 0 84.2% 60.2%;     /* Red for destructive actions */
+  --destructive-foreground: 0 0% 98%; /* Light text on destructive */
+  --muted: 60 4.8% 95.9%;           /* Muted background */
+  --muted-foreground: #6b7280;      /* Gray for default icon color */
+  --border: 20 5.9% 90%;            /* Border color */
+  --input: 20 5.9% 90%;             /* Input border color */
+  --ring: 24 9.8% 10%;              /* Focus ring color */
+  --radius: 0.5rem;                 /* Border radius */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Menlo, "Liberation Mono", "Courier New", monospace;
+  
+  /* Add your custom colors to the theme */
+  --color-black-custom: var(--black);
+  --color-purple-custom: var(--purple);
+  --color-emeraldlight: var(--emeraldlight);
+  --color-darkgreen: var(--darkgreen);
+
+  /* shadcn/ui colors for Tailwind */
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    
+    /* Dark mode shadcn/ui variables */
+    --primary: 0 0% 98%;
+    --primary-foreground: 24 9.8% 10%;
+    --secondary: 24 9.8% 10%;
+    --secondary-foreground: 0 0% 98%;
+    --accent: var(--emeraldlight);   /* Keep brand green in dark mode */
+    --accent-foreground: #ffffff;    /* White text on green */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --muted: 24 9.8% 10%;
+    --muted-foreground: #9ca3af;     /* Lighter gray for dark mode icons */
+    --border: 24 9.8% 90%;
+    --input: 24 9.8% 10%;
+    --ring: 0 0% 83.1%;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  font-variation-settings: normal;
+  line-height: 1.6;
+}
+
+/* Custom utility classes for your brand colors */
+.text-emeraldlight {
+  color: var(--emeraldlight);
+}
+
+.text-darkgreen {
+  color: var(--darkgreen);
+}
+
+.text-black-custom {
+  color: var(--black);
+}
+
+.text-purple-custom {
+  color: var(--purple);
+}
+
+.bg-emeraldlight {
+  background-color: var(--emeraldlight);
+}
+
+.bg-darkgreen {
+  background-color: var(--darkgreen);
+}
+
+.bg-black-custom {
+  background-color: var(--black);
+}
+
+.bg-purple-custom {
+  background-color: var(--purple);
+}
+
+/* Opacity variations using RGB values */
+.bg-emeraldlight-25 {
+  background-color: rgba(var(--emeraldlight-rgb), 0.25);
+}
+
+.bg-emeraldlight-5 {
+  background-color: rgba(var(--emeraldlight-rgb), 0.05);
+}
+
+.bg-darkgreen-5 {
+  background-color: rgba(var(--darkgreen-rgb), 0.05);
+}
+
+.bg-white-5 {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Hover state utilities */
+.hover-text-emeraldlight:hover {
+  color: var(--emeraldlight);
+}
+
+.hover-text-darkgreen:hover {
+  color: var(--darkgreen);
+}
+
+.hover-bg-emeraldlight-5:hover {
+  background-color: rgba(var(--emeraldlight-rgb), 0.05);
+}
+
+.hover-bg-darkgreen-5:hover {
+  background-color: rgba(var(--darkgreen-rgb), 0.05);
+}
+
+.hover-bg-white-5:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Transition utilities */
+.duration-700 {
+  transition-duration: 700ms;
+}
+
+/* Content container with wider max-width for tables */
+.content-container {
+  max-width: 1400px; /* Increased from 1024px (max-w-4xl) */
+}
+
+/* Font consistency utilities */
+.font-sans {
+  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Menlo, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Ensure all headings use consistent font */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* Ensure buttons and form elements use consistent font */
+button, input, select, textarea {
+  font-family: inherit;
+}

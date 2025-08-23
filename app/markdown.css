@@ -1,0 +1,452 @@
+/* Markdown Content Styling */
+
+/* Reset and base styles */
+.markdown-content * {
+  margin: 0;
+  padding: 0;
+}
+
+/* Layout adjustments for fixed sidebar */
+.markdown-content {
+  max-width: none;
+  width: 100%;
+}
+
+/* Proper heading styles */
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  font-weight: 600;
+  line-height: 1.25;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  position: relative;
+  padding-left: 1.5rem;
+  scroll-margin-top: 100px; /* Account for fixed header */
+}
+
+.markdown-content h1 { 
+  font-size: 2rem; 
+  margin-top: 0; 
+}
+
+.markdown-content h2 { 
+  font-size: 1.5rem; 
+  border-bottom: 1px solid #e5e7eb; 
+  padding-bottom: 0.3em; 
+}
+
+.dark .markdown-content h2 {
+  border-bottom-color: #374151;
+}
+
+.markdown-content h3 { font-size: 1.25rem; }
+.markdown-content h4 { font-size: 1.1rem; }
+.markdown-content h5 { font-size: 1rem; }
+.markdown-content h6 { font-size: 0.9rem; }
+
+/* Hide the # symbols that are showing */
+.markdown-content h1:before,
+.markdown-content h2:before,
+.markdown-content h3:before,
+.markdown-content h4:before,
+.markdown-content h5:before,
+.markdown-content h6:before {
+  display: none;
+}
+
+/* Paragraph spacing */
+.markdown-content p {
+  margin: 1em 0;
+  line-height: 1.6;
+  color: #374151;
+}
+
+.dark .markdown-content p {
+  color: #e5e7eb;
+}
+
+/* Proper list styling */
+.markdown-content ul,
+.markdown-content ol {
+  margin: 1em 0;
+  padding-left: 2em;
+}
+
+.markdown-content ul {
+  list-style-type: disc;
+}
+
+.markdown-content ol {
+  list-style-type: decimal;
+}
+
+.markdown-content li {
+  margin: 0.5em 0;
+  line-height: 1.6;
+  color: #374151;
+}
+
+.dark .markdown-content li {
+  color: #e5e7eb;
+}
+
+.markdown-content li ul,
+.markdown-content li ol {
+  margin: 0.5em 0;
+}
+
+/* Code styling */
+.markdown-content code {
+  background: #f1f5f9;
+  color: #dc2626;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Menlo, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.875em;
+}
+
+.dark .markdown-content code {
+  background: #374151;
+  color: #fbbf24;
+}
+
+.markdown-content pre {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Menlo, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.dark .markdown-content pre {
+  background: #1f2937;
+  border-color: #374151;
+}
+
+.markdown-content pre code {
+  background: none;
+  padding: 0;
+  border: none;
+  color: #1f2937;
+}
+
+.dark .markdown-content pre code {
+  color: #e5e7eb;
+}
+
+/* Link styling */
+.markdown-content a {
+  color: #059669;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.dark .markdown-content a {
+  color: #34d399;
+}
+
+.markdown-content a:hover {
+  color: #047857;
+  text-decoration: underline;
+}
+
+.dark .markdown-content a:hover {
+  color: #6ee7b7;
+}
+
+/* External link indicator */
+.markdown-content a[href^="http"]:after,
+.markdown-content a[href^="//"]:after {
+  content: "↗";
+  margin-left: 0.25rem;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* Table styling with enhanced width and overflow fixes */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  margin: 1.5rem 0;
+  width: 100%;
+}
+
+.dark .table-wrapper {
+  border-color: #374151;
+}
+
+.markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  min-width: 1200px; /* Increased from 800px for wider tables */
+}
+
+.dark .markdown-content table {
+  background: #1f2937;
+}
+
+.markdown-content th,
+.markdown-content td {
+  padding: 1rem 1.25rem; /* Increased padding for more space */
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  min-width: 140px; /* Increased from 120px */
+}
+
+.dark .markdown-content th,
+.dark .markdown-content td {
+  border-bottom-color: #374151;
+}
+
+.markdown-content th {
+  background: #f9fafb;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #374151;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.dark .markdown-content th {
+  background: #374151;
+  color: #f3f4f6;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .markdown-content table {
+    font-size: 0.875rem;
+  }
+  
+  .markdown-content th,
+  .markdown-content td {
+    padding: 0.5rem 0.75rem;
+    min-width: 100px;
+    max-width: 150px;
+  }
+}
+
+/* Specific column sizing for proxy table - wider columns */
+.markdown-content table th:nth-child(1),
+.markdown-content table td:nth-child(1) {
+  min-width: 100px;
+  max-width: 120px;
+}
+
+.markdown-content table th:nth-child(2),
+.markdown-content table td:nth-child(2) {
+  min-width: 300px; /* Increased for Summary column */
+  max-width: 400px;
+}
+
+.markdown-content table th:nth-child(3),
+.markdown-content table td:nth-child(3) {
+  min-width: 150px; /* Increased for Pros */
+  max-width: 200px;
+}
+
+.markdown-content table th:nth-child(4),
+.markdown-content table td:nth-child(4) {
+  min-width: 150px; /* Increased for Cons */
+  max-width: 200px;
+}
+
+.markdown-content table th:nth-child(5),
+.markdown-content table td:nth-child(5) {
+  min-width: 130px; /* Increased for Gotchas */
+  max-width: 160px;
+}
+
+.markdown-content table th:nth-child(6),
+.markdown-content table td:nth-child(6) {
+  min-width: 180px; /* Increased for Who should implement */
+  max-width: 220px;
+}
+
+.markdown-content table th:nth-child(7),
+.markdown-content table td:nth-child(7) {
+  min-width: 180px; /* Increased for Known Vulnerabilities */
+  max-width: 220px;
+}
+
+.markdown-content table th:nth-child(8),
+.markdown-content table td:nth-child(8) {
+  min-width: 140px; /* Increased for Upgradeable */
+  max-width: 170px;
+}
+
+.markdown-content table th:nth-child(9),
+.markdown-content table td:nth-child(9) {
+  min-width: 140px; /* Increased for Can be made immutable */
+  max-width: 170px;
+}
+
+/* Blockquote styling */
+.markdown-content blockquote {
+  border-left: 4px solid #059669;
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.dark .markdown-content blockquote {
+  border-left-color: #34d399;
+  color: #d1d5db;
+}
+
+/* Header anchor links styling */
+.markdown-content h1 > a[href^="#"],
+.markdown-content h2 > a[href^="#"],
+.markdown-content h3 > a[href^="#"],
+.markdown-content h4 > a[href^="#"],
+.markdown-content h5 > a[href^="#"],
+.markdown-content h6 > a[href^="#"] {
+  position: absolute;
+  left: -1.5rem;
+  top: 0;
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  text-decoration: none;
+  color: #9ca3af;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  font-weight: 400;
+  font-size: 0.875rem;
+  padding: 0 0.25rem;
+  cursor: pointer;
+}
+
+.markdown-content h1 > a[href^="#"]:hover,
+.markdown-content h2 > a[href^="#"]:hover,
+.markdown-content h3 > a[href^="#"]:hover,
+.markdown-content h4 > a[href^="#"]:hover,
+.markdown-content h5 > a[href^="#"]:hover,
+.markdown-content h6 > a[href^="#"]:hover {
+  color: #16a34a;
+  opacity: 1;
+}
+
+.markdown-content h1 > a[href^="#"]:focus,
+.markdown-content h2 > a[href^="#"]:focus,
+.markdown-content h3 > a[href^="#"]:focus,
+.markdown-content h4 > a[href^="#"]:focus,
+.markdown-content h5 > a[href^="#"]:focus,
+.markdown-content h6 > a[href^="#"]:focus {
+  opacity: 1;
+  outline: 2px solid #16a34a;
+  outline-offset: 2px;
+}
+
+/* Show anchor on heading hover */
+.markdown-content h1:hover > a[href^="#"],
+.markdown-content h2:hover > a[href^="#"],
+.markdown-content h3:hover > a[href^="#"],
+.markdown-content h4:hover > a[href^="#"],
+.markdown-content h5:hover > a[href^="#"],
+.markdown-content h6:hover > a[href^="#"] {
+  opacity: 1;
+}
+
+/* Replace # with a link icon */
+.markdown-content h1 > a[href^="#"]::before,
+.markdown-content h2 > a[href^="#"]::before,
+.markdown-content h3 > a[href^="#"]::before,
+.markdown-content h4 > a[href^="#"]::before,
+.markdown-content h5 > a[href^="#"]::before,
+.markdown-content h6 > a[href^="#"]::before {
+  content: "🔗";
+  font-size: 0.75rem;
+}
+
+/* Hide the # text */
+.markdown-content h1 > a[href^="#"],
+.markdown-content h2 > a[href^="#"],
+.markdown-content h3 > a[href^="#"],
+.markdown-content h4 > a[href^="#"],
+.markdown-content h5 > a[href^="#"],
+.markdown-content h6 > a[href^="#"] {
+  font-size: 0;
+}
+
+/* Strong/bold text */
+.markdown-content strong {
+  font-weight: 600;
+  color: #111827;
+}
+
+.dark .markdown-content strong {
+  color: #f9fafb;
+}
+
+/* Emphasis/italic text */
+.markdown-content em {
+  font-style: italic;
+}
+
+/* Jekyll-style Table of Contents */
+.jekyll-toc {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 0.375rem;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  max-width: 100%;
+}
+
+.dark .jekyll-toc {
+  background: #1f2937;
+  border-color: #374151;
+}
+
+.toc-list,
+.toc-sublist {
+  margin: 0;
+  padding-left: 1.5rem;
+  list-style: decimal;
+}
+
+.toc-sublist {
+  list-style: lower-alpha;
+  margin-top: 0.25rem;
+}
+
+.toc-item {
+  margin: 0.25rem 0;
+  line-height: 1.5;
+}
+
+.toc-link {
+  color: #059669;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.dark .toc-link {
+  color: #34d399;
+}
+
+.toc-link:hover {
+  color: #047857;
+  text-decoration: underline;
+}
+
+.dark .toc-link:hover {
+  color: #6ee7b7;
+}

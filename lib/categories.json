@@ -1,0 +1,46 @@
+{
+  "categories": {
+    "proxies": {
+      "title": "Electisec Proxies Research",
+      "description": "Comprehensive guide to smart contract proxy patterns, security vulnerabilities, and best practices for Web3 developers and auditors.",
+      "contentSource": "markdown",
+      "contentPath": "content/proxies",
+      "seo": {
+        "title": "Electisec Proxies Research | Smart Contract Proxy Patterns & Security",
+        "keywords": [
+          "smart contracts",
+          "proxy patterns", 
+          "Web3 security",
+          "Ethereum",
+          "blockchain",
+          "Electisec",
+          "delegatecall",
+          "upgradeable contracts",
+          "proxy vulnerabilities",
+          "smart contract auditing"
+        ],
+        "baseUrl": "https://research.electisec.com/proxies"
+      }
+    },
+    "mpc": {
+      "title": "Electisec MPC Research",
+      "description": "Advanced research on multi-party computation protocols, privacy-preserving technologies, and cryptographic security analysis.",
+      "contentSource": "markdown",
+      "contentPath": "content/mpc",
+      "seo": {
+        "title": "Electisec MPC Research | Multi-Party Computation Security",
+        "keywords": [
+          "multi-party computation",
+          "MPC protocols",
+          "privacy-preserving computation",
+          "cryptographic security",
+          "Electisec",
+          "security research",
+          "blockchain privacy",
+          "cryptography"
+        ],
+        "baseUrl": "https://research.electisec.com/mpc"
+      }
+    }
+  }
+}
