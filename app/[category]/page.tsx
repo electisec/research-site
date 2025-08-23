@@ -7,7 +7,7 @@ import MPCSection from '../components/MPCSection';
 import { ContentData, SearchIndexItem } from '@/lib/content';
 
 interface PageProps {
-  params: { category: string };
+  params: Promise<{ category: string }>;
 }
 
 const componentMap = {

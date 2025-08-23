@@ -6,7 +6,7 @@ import categoriesData from './categories.json';
 export interface CategoryConfig {
   title: string;
   description: string;
-  component: string;
+  component?: string;
   contentSource: 'markdown' | 'json';
   contentPath?: string;
   content?: Array<{
@@ -28,7 +28,8 @@ export interface CategoryData {
 }
 
 export function getCategoryConfig(category: string): CategoryConfig | null {
-  return categoriesData.categories[category as keyof typeof categoriesData.categories] || null;
+  const config = categoriesData.categories[category as keyof typeof categoriesData.categories];
+  return config ? config as CategoryConfig : null;
 }
 
 export function getAllCategories(): string[] {

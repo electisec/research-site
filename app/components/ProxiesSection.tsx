@@ -256,6 +256,13 @@ const ProxiesSection: React.FC<ProxiesSectionProps> = ({
     return [];
   }, [initialSearchIndex, initialContent]);
   
+  // Utility functions
+  const highlightSearchTerm = useCallback((text: string, term: string) => {
+    if (!term) return text;
+    const regex = new RegExp(`(${term})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  }, []);
+  
   // Search functionality
   useEffect(() => {
     if (!searchQuery.trim()) {
@@ -273,7 +280,7 @@ const ProxiesSection: React.FC<ProxiesSectionProps> = ({
       }));
     
     setSearchResults(results);
-  }, [searchQuery, searchIndex]);
+  }, [searchQuery, searchIndex, highlightSearchTerm]);
   
   // Click outside handler for search dropdown
   useEffect(() => {
@@ -320,13 +327,6 @@ const ProxiesSection: React.FC<ProxiesSectionProps> = ({
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isClient]);
-  
-  // Utility functions
-  const highlightSearchTerm = useCallback((text: string, term: string) => {
-    if (!term) return text;
-    const regex = new RegExp(`(${term})`, 'gi');
-    return text.replace(regex, '<mark>$1</mark>');
-  }, []);
   
   const toggleSection = useCallback((sectionId: string) => {
     setExpandedSections(prev => ({
@@ -516,7 +516,7 @@ const ProxiesSection: React.FC<ProxiesSectionProps> = ({
       // Longer delay to ensure content is rendered
       setTimeout(() => scrollToHash(hash), 1000);
     }
-  }, [isClient, currentPageData]);
+  }, [isClient, currentPageData, initialContent]);
   
   // Floating TOC
   const floatingTOC = useMemo(() => {
