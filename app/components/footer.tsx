@@ -17,7 +17,7 @@ import { Dock, DockIcon } from "./dock";
 export default function Footer() {
   return (
     <div className="h-full flex flex-col bg-gray-50 justify-center p-16 items-center relative">
-      <img alt="" src="assets/images/logo.svg" className="h-[5rem]" />
+      <img alt="" src="assets/images/electisec-logo.png" className="h-[5rem]" />
       <DockDemo />
       <p className="text-sm text-zinc-500 mt-10 text-center">
         Copyright © 2025 Electisec. All rights reserved.
