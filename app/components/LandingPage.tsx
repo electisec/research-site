@@ -6,8 +6,8 @@ import { Shield, Cpu, ArrowRight, BookOpen, Users, Target } from 'lucide-react';
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 pt-40 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto text-center">
+    <main className="min-h-screen pt-20 px-4 sm:px-6 lg:mx-[20vw]">
+      <div className="text-center">
         <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl mb-16">
           <span className="block xl:inline">Explore </span>{' '}
           <span className="block text-green-600 xl:inline">Research</span>

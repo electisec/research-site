@@ -2,7 +2,6 @@ import './globals.css'
 import { Metadata } from 'next'
 import React from 'react'
 import { Inter } from 'next/font/google'
-import NavbarWrapper from './components/NavbarWrapper'
 import FooterWrapper from './components/FooterWrapper' // Import the wrapper
 
 const inter = Inter({ 
@@ -24,7 +23,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={inter.variable}>
       <body className={inter.className}>
-        <NavbarWrapper />
         <main className="min-h-screen">
           {children}
         </main>
