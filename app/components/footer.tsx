@@ -17,7 +17,7 @@ import { Dock, DockIcon } from "./dock";
 export default function Footer() {
   return (
     <div className="h-full flex flex-col bg-gray-50 justify-center p-16 items-center relative">
-      <img alt="" src="assets/images/electisec-logo.png" className="h-[5rem]" />
+      <img alt="" src="assets/images/logo.png" className="h-[5rem]" />
       <DockDemo />
       <p className="text-sm text-zinc-500 mt-10 text-center">
         Copyright © 2025 Electisec. All rights reserved.
@@ -91,11 +91,11 @@ export const Icons = {
 const DATA = {
   navbar: [
     {
-      href: "https://reports.electisec.tech",
+      href: "https://reports.electisec.com",
       icon: BookCopyIcon,
       label: "Reports",
     },
-    { href: "https://blog.electisec.tech", icon: PencilIcon, label: "Blog" },
+    { href: "https://blog.electisec.com", icon: PencilIcon, label: "Blog" },
   ],
   contact: {
     social: {
@@ -121,7 +121,7 @@ const DATA = {
       },
       email: {
         name: "Send Email",
-        url: "mailto:hello@electisec.tech",
+        url: "mailto:hello@electisec.com",
         icon: Icons.email,
       },
     },

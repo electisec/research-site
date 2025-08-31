@@ -67,7 +67,7 @@ function SidebarItemComponent({
       }`}>
         <button
           onClick={handleItemClick}
-          className="flex items-center gap-3 flex-1 text-left"
+          className="flex items-center gap-3 flex-1 text-left cursor-pointer"
           aria-current={isActive ? 'page' : undefined}
         >
           <item.icon size={18} />
@@ -77,7 +77,7 @@ function SidebarItemComponent({
         {item.children && toggleSection && (
           <button
             onClick={handleToggleSection}
-            className="p-1 hover:bg-gray-200 rounded transition-colors"
+            className="p-1 hover:bg-gray-200 rounded transition-colors cursor-pointer"
             aria-expanded={isExpanded}
             aria-label={`${isExpanded ? 'Collapse' : 'Expand'} ${item.title} section`}
           >
@@ -98,7 +98,7 @@ function SidebarItemComponent({
                 setCurrentPage(child.id);
                 onItemClick?.();
               }}
-              className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+              className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors cursor-pointer ${
                 currentPage === child.id ? activeColors : 'hover:bg-gray-100'
               }`}
               aria-current={currentPage === child.id ? 'page' : undefined}
