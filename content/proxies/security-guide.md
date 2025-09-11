@@ -66,15 +66,15 @@ A storage collision happens when the storage slot layout in the implementation c
 
 Take the Audius hack as an example. The AudiusAdminUpgradeabilityProxy contract storage slots collided with the initialization boolean values that indicated whether the proxy was initialized or not. The links to writeups about the details of the Audius hack are found below.
 
-![AudiusAdminUpgradeabilityProxy storage slots after mitigation](../../assets/images/AudiusAdminUpgradeabilityProxy_before.jpg)
+![AudiusAdminUpgradeabilityProxy storage slots after mitigation](/proxies/AudiusAdminUpgradeabilityProxy_before.jpg)
 
 *The proxy contract storage slots visualized [with sol2uml](https://github.com/naddison36/sol2uml)*
 
-![DelegateManager storage slots before mitigation](../../assets/images/DelegateManagerV2_before.jpg)
+![DelegateManager storage slots before mitigation](/proxies/DelegateManagerV2_before.jpg)
 
 *The DelegateManager contract storage before mitigation. The storage of the boolean values collide with the proxyAdmin address in the proxy contract.*
 
-![DelegateManager storage slots after mitigation](../../assets/images/DelegateManagerV2_after.jpg)
+![DelegateManager storage slots after mitigation](/proxies/DelegateManagerV2_after.jpg)
 
 *The DelegateManager contract storage after mitigation. The storage of the boolean values has been moved to a new storage slot to avoid a storage collision.*
 

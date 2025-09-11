@@ -4,22 +4,27 @@ import React from "react";
 import { CalendarIcon, MailIcon, PencilIcon, BookCopyIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "./button";
-import { Separator } from "./separator";
+import { buttonVariants } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "./tooltip";
-import { Dock, DockIcon } from "./dock";
+} from "@/components/ui/tooltip";
+import { Dock, DockIcon } from "@/components/ui/dock";
 
 export default function Footer() {
+
   return (
-    <div className="h-full flex flex-col bg-gray-50 justify-center p-16 items-center relative">
-      <img alt="" src="assets/images/logo.png" className="h-[5rem]" />
+    <div className="h-full flex flex-col bg-foreground justify-center p-16 items-center relative">
+      <img
+        alt="Electisec Logo"
+        src="/logo.png"
+        className="h-[5rem]"
+      />
       <DockDemo />
-      <p className="text-sm text-zinc-500 mt-10 text-center">
+      <p className="text-sm text-body mt-10 text-center">
         Copyright © 2025 Electisec. All rights reserved.
       </p>
     </div>
@@ -95,7 +100,7 @@ const DATA = {
       icon: BookCopyIcon,
       label: "Reports",
     },
-    { href: "https://blog.electisec.com", icon: PencilIcon, label: "Blog" },
+    { href: "https://research.electisec.com", icon: PencilIcon, label: "Research" },
   ],
   contact: {
     social: {
@@ -130,7 +135,7 @@ const DATA = {
 
 export function DockDemo() {
   return (
-    <div className="relative flex flex-col items-center justify-center">
+    <div className="relative flex flex-col items-center justify-center text-title">
       <TooltipProvider>
         <Dock direction="middle">
           {DATA.navbar.map((item) => (

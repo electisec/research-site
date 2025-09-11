@@ -1,9 +1,3 @@
----
-title: "Electisec MPC Research"
-description: "Advanced research on multi-party computation protocols and cryptographic security"
-nav_order: 0
----
-
 # Electisec MPC Research
 
 Welcome to Electisec's comprehensive research on Multi-Party Computation (MPC) protocols, privacy-preserving technologies, and cryptographic security analysis.
@@ -46,4 +40,4 @@ Explore our research using the navigation menu or search for specific topics. Wh
 
 We welcome contributions from the community. If you have feedback, corrections, or would like to contribute to our research, please reach out through our official channels.
 
-***Research effort by [Electisec](https://electisec.com).*
+***Research by [Oba](https://github.com/obatirou) and [teddav](https://github.com/teddav) of [Electisec](https://electisec.com).*

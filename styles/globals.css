@@ -1,0 +1,480 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #fdfdfd;
+    --aside: #e9e9e9;
+    --foreground: #f3f3f3;
+    --primary: #15803d;
+    --primary-foreground: #ffffff;
+    --secondary: #f5f5f5;
+    --secondary-foreground: #374151;
+    --accent: #3ee680;
+    --accent-foreground: #15803d;
+    --border: #e5e7eb;
+    --input: #e5e7eb;
+    --button-text: #15803d;
+    --title: #080444;
+    --body: #7e7e7e;
+    --transition-duration: 0.3s;
+    --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+pre {
+  background: var(--aside) !important;
+}
+
+pre code {
+  color: var(--secondary-foreground) !important;
+}
+
+aside {
+  color: var(--secondary-foreground) !important;
+  background: var(--aside) !important;
+  padding: 2rem !important;
+  border-radius: 1rem !important;
+  border: 1px solid var(--border) !important;
+}
+
+/* Remove display: inline-block and adjust wrapping behavior */
+a, p {
+  white-space: normal;        /* Change to normal to prevent unnecessary breaks */
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+  max-width: 100%;
+}
+
+code {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+  max-width: 100%;
+}
+
+/* Prose styling */
+.prose {
+  color: var(--secondary-foreground);
+  contain: layout style !important;
+  overflow-wrap: break-word !important;
+}
+
+.prose a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.prose a::after {
+  content: "↗";
+  font-size: 0.8em;
+  margin-left: 0.1em;
+}
+
+.prose a:hover {
+  text-decoration: underline;
+}
+
+/* Updated to exclude mermaid elements */
+.prose p:not(:has(.mermaid)), 
+.prose li:not(:has(.mermaid)), 
+.prose blockquote:not(:has(.mermaid)) {
+  color: var(--secondary-foreground);
+}
+
+/* Alternative approach - more explicit exclusion */
+.prose p, .prose li, .prose blockquote {
+  color: var(--secondary-foreground);
+}
+
+.prose .mermaid,
+.prose .mermaid * {
+  color: unset !important;
+}
+
+/* Mermaid diagram container styling */
+.prose .mermaid {
+  max-width: 100% !important;
+  max-height: 60vh !important;
+  overflow: auto !important;
+  margin: 1.5rem 0 !important;
+  display: block !important;
+  text-align: center !important;
+  background-color: white !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 0.5rem !important;
+  padding: 1rem !important;
+  box-sizing: border-box !important;
+  contain: layout style paint !important;
+}
+
+/* Ensure mermaid SVGs are contained */
+.prose .mermaid svg {
+  max-width: calc(100% - 2rem) !important;
+  max-height: 55vh !important;
+  height: auto !important;
+  width: auto !important;
+  display: block !important;
+  margin: 0 auto !important;
+}
+
+/* Allow mermaid theme colors to work properly */
+.prose .mermaid * {
+  color: inherit;
+}
+
+/* Ensure text contrast in mermaid diagrams */
+.prose .mermaid text {
+  fill: #1e293b !important;
+  color: #1e293b !important;
+}
+
+/* Hide mermaid error notifications */
+[id*="mermaidError"],
+[class*="mermaidError"],
+.error:has-text("syntax error"),
+.error:has-text("Parse error"),
+[role="alert"]:has-text("mermaid") {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+/* Custom mermaid error styling for our controlled errors */
+.mermaid-error {
+  background-color: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  color: var(--body);
+  font-style: italic;
+  text-align: center;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  color: var(--title);
+}
+
+.prose h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 1;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.prose h2 {
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 1;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.prose h3 {
+  font-size: 1.2rem;
+  font-weight: 600; 
+  line-height: 1.2;
+}
+
+.prose p, .prose li {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.prose pre {
+  border-radius: 0.375rem;
+  overflow: hidden;
+}
+
+.prose blockquote {
+    border-left: 4px solid #059669;
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+    color: #6b7280;
+    font-style: italic
+}
+
+/* Inline code styling */
+.prose :not(pre) > code {
+  color: var(--primary) !important;
+  background-color: var(--secondary);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+/* Table styling */
+.prose table {
+  table-layout: auto;
+  font-size: 0.875rem;
+}
+
+.prose table th {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+  font-weight: 500;
+}
+
+.prose table td {
+  border-top: 1px solid var(--border);
+  color: var(--body);
+}
+
+.prose img {
+  border-radius: 0.375rem;
+}
+
+/* LaTeX styling */
+.katex {
+  font-size: 1.1em !important;
+  display: inline !important;
+}
+
+.katex-display {
+  display: block !important;
+  text-align: center !important;
+  margin: 1em 0 !important;
+  font-size: 1.2em !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* LaTeX paragraph styling */
+p:has(.katex:not(.katex-display)) {
+  display: block;
+  text-align: left;
+  margin: inherit;
+  max-width: 100%;
+  white-space: normal;
+}
+
+p:has(.katex-display) {
+  display: block;
+  text-align: center;
+  margin: 1rem auto;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: normal;
+  clear: both;
+}
+
+/* inline code */
+code.inline-code-block::before,
+code.inline-code-block::after {
+  content: "" !important;
+}
+
+/* Search dropdown styling */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Heading link styling */
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  position: relative;
+  scroll-margin-top: 2rem;
+}
+
+.prose h1:hover .heading-link,
+.prose h2:hover .heading-link,
+.prose h3:hover .heading-link,
+.prose h4:hover .heading-link,
+.prose h5:hover .heading-link,
+.prose h6:hover .heading-link {
+  opacity: 1;
+}
+
+.heading-link {
+  opacity: 0;
+  position: absolute;
+  left: -1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+}
+
+.heading-link:hover {
+  color: #059669;
+}
+
+.heading-link svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Table of Contents styling */
+.table-of-contents {
+  background-color: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.table-of-contents h3 {
+  color: var(--title);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  border: none;
+  padding: 0;
+}
+
+.table-of-contents ol,
+.table-of-contents ul {
+  padding: 0;
+  margin: 0;
+}
+
+.table-of-contents .toc-main-list {
+  list-style: decimal;
+  padding-left: 1.5rem;
+}
+
+.table-of-contents .toc-sub-ordered {
+  list-style: lower-alpha;
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.table-of-contents .toc-sub-unordered {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.table-of-contents .toc-item {
+  margin: 0.5rem 0;
+}
+
+.table-of-contents .toc-main-list > .toc-item {
+  margin-bottom: 0.75rem;
+}
+
+.table-of-contents a {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.table-of-contents a:hover {
+  text-decoration: underline;
+  color: var(--accent-foreground);
+}
+
+.table-of-contents .toc-sub-ordered a,
+.table-of-contents .toc-sub-unordered a {
+  font-size: 0.95rem;
+  color: var(--body);
+  font-weight: 400;
+}
+
+/* Different styling based on heading levels */
+.table-of-contents .toc-level-1 > a {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--title);
+}
+
+.table-of-contents .toc-level-2 > a {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.table-of-contents .toc-level-3 > a {
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.table-of-contents .toc-level-4 > a,
+.table-of-contents .toc-level-5 > a,
+.table-of-contents .toc-level-6 > a {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--body);
+}
+
+/* Remove external link arrows from TOC */
+.table-of-contents a::after {
+  content: none;
+}
+
+/* Responsive styling */
+@media (max-width: 450px) {
+  .prose table {
+    font-size: 0.75rem;
+  }
+
+  .prose h1 {
+    font-size: 2rem !important;
+    line-height: normal !important;
+  }
+
+  .prose table td,
+  .prose table th {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .table-of-contents {
+    padding: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .table-of-contents h3 {
+    font-size: 1.1rem;
+  }
+
+  .table-of-contents a {
+    font-size: 0.9rem;
+  }
+
+  .table-of-contents .toc-level-1 > a {
+    font-size: 1rem;
+  }
+
+  .table-of-contents .toc-level-2 > a {
+    font-size: 0.9rem;
+  }
+
+  .table-of-contents .toc-level-3 > a,
+  .table-of-contents .toc-sub-ordered a,
+  .table-of-contents .toc-sub-unordered a {
+    font-size: 0.85rem;
+  }
+
+  .table-of-contents .toc-level-4 > a,
+  .table-of-contents .toc-level-5 > a,
+  .table-of-contents .toc-level-6 > a {
+    font-size: 0.8rem;
+  }
+}

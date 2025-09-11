@@ -5,7 +5,7 @@
 Oblivious transfer (OT) is a basic two-party cryptographic protocol between a sender, who holds a collection of messages, and a receiver, who wants to obtain some of them. In an OT, the receiver picks exactly which messages to learn but learns nothing about the others and the sender learns nothing about the receiver’s choice. Common flavors are:
 
 - 1-out-of-2 OT, where the sender has two messages and the receiver picks one;
-- 1-out-of-m OT, where the sender has $m$ $$messages and the receiver picks one;
+- 1-out-of-m OT, where the sender has $m$ messages and the receiver picks one;
 - n-out-of-m OT, where the receiver picks any $n$ of the sender’s $m$ messages.
 
 The choice of `1`, `n` and `m` depends entirely on the application’s needs.

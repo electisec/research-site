@@ -17,7 +17,7 @@ $$
 k=w*\Delta+m
 $$
 
-However, the receiver learns nothing about `$w$` and `$m$` beyond the result, and the sender learns nothing at all, not even the receiver’s input $\Delta$.
+However, the receiver learns nothing about $w$ and $m$ beyond the result, and the sender learns nothing at all, not even the receiver's input $\Delta$.
 
 Another way to describe this is **private affine function evaluation**: the receiver learns the output of a function defined by the sender, without learning the function itself.
 
@@ -43,7 +43,7 @@ k=\begin{cases}
 \end{cases}
 $$
 
-This can be interpreted as choosing between the two values `$v_0$` and `$v_1$`, depending on $\Delta$, just like OT.
+This can be interpreted as choosing between the two values $v_0$ and $v_1$, depending on $\Delta$, just like OT.
 
 OLE has a variety of applications in secure computation, including:
 
@@ -202,7 +202,7 @@ What's going on here?
 
 `b_bits` is the binary representation of `b` (in little endian).
 
-→ so… `$t_b$` is just $a*b$ based on the binary representation of `b`
+→ so… $t_b$ is just $a*b$ based on the binary representation of `b`
 
 Let’s detail:
 
@@ -452,7 +452,7 @@ Recall that a GGM tree can expand a single seed into $N$ pseudorandom values. He
 - the **verifier** generates a GGM tree and gets all $N$ leaves
 - the **prover** wants to learn *all but one* of these leaves, the one corresponding to a secret index $\alpha$
 
-How can the prover get `$N - 1$` values without revealing $\alpha$ ?
+How can the prover get $N - 1$ values without revealing $\alpha$ ?
 
 By using $\log(N)$ Oblivious Transfers, one per GGM tree level.
 
@@ -515,7 +515,7 @@ $$
 c=(\displaystyle\sum_{i=0}^{N-1}s_i) - \Delta
 $$
 
-The value `$c$` is sent to the prover.
+The value $c$ is sent to the prover.
 
 The prover computes the missing value $f_\alpha$ by subtracting the sum of their known $f_i$’s from $c$:
 
