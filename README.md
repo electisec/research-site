@@ -1,183 +1,126 @@
 # Electisec Research Site
 
-This is the official research website for Electisec, featuring comprehensive guides on smart contract security and cryptographic protocols.
+## Adding New Content
 
-## Features
+### 1. Add Category to categories.json
 
-- **Proxies Research**: Comprehensive guide to smart contract proxy patterns and security vulnerabilities
-- **MPC Research**: Advanced research on multi-party computation protocols and cryptographic security
-- **Category-based Content Management**: Organized content structure with markdown support
-- **Responsive Design**: Modern, mobile-friendly interface
-- **Search Functionality**: Full-text search across all research content
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Content Structure
-
-```
-content/
-├── proxies/          # Smart contract proxy research
-│   ├── home.md
-│   ├── proxy-basics.md
-│   └── ...
-└── mpc/              # Multi-party computation research
-    ├── home.md
-    ├── protocol-basics.md
-    └── ...
-```
-
-## Adding a New Research Category
-
-The site architecture is designed to easily support new research categories. Follow these steps to add a new category (e.g., "cryptography"):
-
-### Step 1: Update Categories Configuration
-
-Edit `lib/categories.json` and add your new category:
+Edit `lib/categories.json` to add your category:
 
 ```json
 {
   "categories": {
-    "proxies": { ... },
-    "mpc": { ... },
-    "cryptography": {
-      "title": "Electisec Cryptography Research",
-      "description": "Advanced research on cryptographic protocols and security analysis",
-      "component": "ContentSection",
-      "contentSource": "markdown",
-      "contentPath": "content/cryptography",
+    "your-category": {
+      "title": "Your Category Title",
+      "description": "Category description for SEO",
+      "contentPath": "content/your-category",
+      "authors": [
+        {
+          "name": "Author Name",
+          "twitter": "https://twitter.com/handle",
+          "avatar": "https://avatars.githubusercontent.com/username"
+        }
+      ],
       "seo": {
-        "title": "Electisec Cryptography Research | Advanced Cryptographic Protocols",
-        "keywords": [
-          "cryptography",
-          "cryptographic protocols",
-          "encryption",
-          "security analysis",
-          "Electisec"
-        ],
-        "baseUrl": "https://research.electisec.com/cryptography"
+        "title": "SEO Title | Electisec Research",
+        "description": "SEO description",
+        "keywords": ["keyword1", "keyword2", "keyword3"],
+        "baseUrl": "https://research.electisec.com/your-category"
+      },
+      "structure": {
+        "your-category": "Category Home",
+        "topic-1": "Topic 1 Title",
+        "topic-2": {
+          "title": "Topic 2 with Subpages",
+          "subpages": {
+            "subtopic-1": "Subtopic Title"
+          }
+        }
       }
     }
   }
 }
 ```
 
-### Step 2: Create Content Directory
-
-Create the content directory structure:
+### 2. Create Content Directory
 
 ```bash
-mkdir content/cryptography
+mkdir content/your-category
 ```
 
-### Step 3: Add Content Files
+### 3. Add Content Files
 
-Create your research content as markdown files in the new directory. **Always include a `home.md` file** as the landing page:
+Create markdown files based on your structure:
 
 ```bash
-# Required: Landing page
-touch content/cryptography/home.md
+# Required: Category landing page
+echo "# Your Category" > content/your-category/home.md
 
-# Add your research topics
-touch content/cryptography/symmetric-encryption.md
-touch content/cryptography/hash-functions.md
-touch content/cryptography/digital-signatures.md
+# Add topics from your structure
+echo "# Topic 1" > content/your-category/topic-1.md
+echo "# Topic 2" > content/your-category/topic-2.md
+echo "# Subtopic" > content/your-category/subtopic-1.md
 ```
 
-### Step 4: Write Content
+### 4. Include Frontmatter
 
-Each markdown file should include frontmatter metadata:
+Add frontmatter to each markdown file:
 
 ```markdown
 ---
-title: "Cryptography Research Overview"
-description: "Advanced research on cryptographic protocols and security"
-nav_order: 1
+title: "Your Page Title"
+author: "Author Name"
 ---
 
-# Cryptography Research Overview
+# Your Content
 
-Your content here...
+Content goes here...
+
+***Research by [Author](https://twitter.com/handle) of [Electisec](https://electisec.com).*
 ```
 
-### Step 5: Test Your New Category
+### 5. Add Images
 
-1. **Start the development server**:
-   ```bash
-   npm run dev
-   ```
-
-2. **Visit your new category**:
-   - Main page: `http://localhost:3000/cryptography`
-   - Individual topics: `http://localhost:3000/cryptography/symmetric-encryption`
-
-3. **Verify functionality**:
-   - ✅ Navigation works
-   - ✅ Search functionality
-   - ✅ Content displays properly
-   - ✅ Mobile responsive design
-
-### Step 6: Build and Deploy
+Store images in the appropriate category folder:
 
 ```bash
-# Test production build
-npm run build
+# Create category image directory
+mkdir -p public/your-category
 
-# Deploy to your hosting platform
-npm run start
+# Add your images
+cp your-image.png public/your-category/
+
+# Reference in markdown
+![Description](/your-category/your-image.png)
 ```
 
-Your new category will be automatically available at:
-- `research.electisec.com/cryptography`
-- `research.electisec.com/cryptography/[topic-slug]`
+### 6. Use Table of Contents
 
-### Content Writing Guidelines
+Add `{:toc}` anywhere in your markdown to generate a table of contents:
 
-1. **File Naming**: Use kebab-case for filenames (`symmetric-encryption.md`)
-2. **Frontmatter**: Always include `title`, `description`, and optionally `nav_order`
-3. **Home Page**: Each category must have a `home.md` file
-4. **Navigation Order**: Use `nav_order` to control sidebar ordering
-5. **Links**: Use relative links between content files
-6. **Images**: Store in `/public/assets/images/` and reference as `/assets/images/filename.jpg`
+```markdown
+# Page Title
 
-### Advanced Configuration
+{:toc}
 
-The categories configuration supports additional options:
+## Section 1
+Content here...
 
-```json
-{
-  "title": "Display Title",
-  "description": "SEO description",
-  "component": "ContentSection",
-  "contentSource": "markdown",
-  "contentPath": "content/category-name",
-  "seo": {
-    "title": "Full SEO title",
-    "keywords": ["keyword1", "keyword2"],
-    "baseUrl": "https://research.electisec.com/category-name"
-  }
-}
+## Section 2
+More content...
 ```
 
-That's it! The generalized architecture handles all the routing, navigation, search functionality, and responsive design automatically.
+### 7. Add Mermaid Diagrams
 
-## Deployment
+Include diagrams using mermaid code blocks:
 
-This site is designed to be deployed at `research.electisec.com` with:
-- Proxies section at: `research.electisec.com/proxies`
-- MPC section at: `research.electisec.com/mpc`
+````markdown
+```mermaid
+graph TD
+    A[Start] --> B[Process]
+    B --> C[End]
+```
+````
 
-## Contributing
-
-For questions, feedback, or contributions, please contact [Electisec](https://electisec.com).
+Your content will be automatically available at:
+- `research.electisec.com/your-category` (home.md)
+- `research.electisec.com/your-category/topic-1` (topic-1.md)
