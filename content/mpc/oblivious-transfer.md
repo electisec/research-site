@@ -8,29 +8,30 @@ Oblivious transfer (OT) is a basic two-party cryptographic protocol between a 
 - 1-out-of-m OT, where the sender has $m$ messages and the receiver picks one;
 - n-out-of-m OT, where the receiver picks any $n$ of the sender’s $m$ messages.
 
-The choice of `1`, `n` and `m` depends entirely on the application’s needs.
+The choice of `n` and `m` depends entirely on the application’s needs.
 
 For example, imagine the sender has answers to 10 multiple-choice questions, and the receiver only wants the answer to question 3. OT lets them get that one answer, without the sender knowing which question they asked about, and without learning anything about the other 9 answers. 
 
 ### OT variants
 
-The simplest type of OT is 1-out-of-2 OT, where the sender has two messages, and the receiver picks one of them. There are several useful variations of this basic form:
+The simplest type of OT is 1-out-of-2, where the sender has two messages, and the receiver picks one of them. There are several useful variations of this basic form:
 
 - Standard OT (Chosen-message OT): The sender chooses both messages, $m_0$ and $m_1$, and the receiver selects one ($m_b$ for some bit $b \in \{0,1\}$) without revealing their choice.
     
-    ![Sans-titre-2025-07-19-2205.png](attachment:73513c2f-bd69-43a4-a348-fae58dcb1b23:Sans-titre-2025-07-19-2205.png)
+    ![OT](./static/OT/OT.png)
+
     
 - Random OT (ROT): The two messages $m_0$ and $m_1$ are *not* chosen by the sender. Instead, the protocol itself generates them at random, and both the sender and receiver learn only their respective parts. This is often used as a building block for more advanced protocols.
     
-    ![Sans-titre-2025-07-19-2206.png](attachment:4b9b86f9-c51d-4b67-9b5a-c33ca95814a7:Sans-titre-2025-07-19-2206.png)
+    ![ROT](./static/OT/ROT.png)
     
 - Correlated OT (COT): The sender does not choose two completely independent messages. Instead, they choose one message $m_0$, and the second is computed as $m_1 = m_0 \oplus \Delta$, where $\Delta$ is a fixed correlation value. The receiver still learns only one of the two.
     
-    ![Sans-titre-2025-07-19-2205-2.png](attachment:37305502-d388-4db0-bdd9-bc102a637861:Sans-titre-2025-07-19-2205-2.png)
+    ![COT](./static/OT/COT.png)
     
 - Random Correlated OT (RCOT): Like COT, the two messages are correlated using a value $\Delta$, but here $r_0$ is generated randomly by the protocol itself rather than chosen by the sender. So the pair looks like $(r, r \oplus \Delta)$, where $r$ is a random value.
     
-    ![Sans-titre-2025-07-19-2206-3.png](attachment:73d6c7e0-588d-4119-b924-47650485c929:Sans-titre-2025-07-19-2206-3.png)
+    ![RCOT](./static/OT/RCOT.png)
     
 
 These variants are especially useful in practice, particularly in efficient implementations of OT extension (discussed later), where generating many lightweight OTs with specific properties is needed.
@@ -52,7 +53,7 @@ A widely used protocol for base OT is the [Chou-Orlandi protocol (2015)](https:
 
 ### Chou-Orlandi
 
-The Chou-Orlandi protocol is an efficient implementation of 1-out-of-2 chosen-message Oblivious Transfer (OT) based on elliptic curve cryptography. It is designed to be fast and easy to batch, which makes it widely used in practice. A batched version of this protocol is implemented in the MPZ library.
+The Chou-Orlandi protocol is an efficient implementation of 1-out-of-2 chosen-message Oblivious Transfer (OT) based on elliptic curve cryptography. It is designed to be fast and easy to batch, which makes it widely used in practice. A batched version of this protocol is implemented in the [MPZ library](https://github.com/privacy-ethereum/mpz/tree/8a57d9891e1941405c31f1b53266e96181b31b26/crates/ot-core/src).
 
 In this protocol, the Sender holds two messages and wants to send exactly one of them to the Receiver, depending on the Receiver’s choice bit, without learning which message was chosen. To achieve this, the protocol derives two shared secret keys through an Elliptic Curve Diffie-Hellman (ECDH) style exchange: one key corresponds to each message.
 
@@ -149,7 +150,7 @@ Let’s see what values the sender computes, and why only one matches the receiv
 
 In both cases, only one key matches, depending on the receiver's choice $c$ and the sender cannot tell which one.
 
-A full implementation can be found in ‣ 
+A full implementation can be found in [MPC for Newbies](https://github.com/teddav/mpc-for-newbies).
 
 ## OT extensions
 
@@ -314,7 +315,7 @@ This works because the key values align depending on Bob's bit $r_j$:
 
 So Bob always gets exactly one key matching his choice, and Alice can’t tell which one he used.
 
-A full implementation can be found in ‣.
+A full implementation can be found in [MPC for Newbies](https://github.com/teddav/mpc-for-newbies).
 
 ### KOS
 
@@ -322,7 +323,7 @@ KOS15 is a security-hardened improvement of the IKNP protocol, designed to defe
 
 Specifically, a malicious receiver (Bob) can exploit the base OT phase, where the roles are reversed (i.e., Bob acts as the sender). Here's how the attack works:
 
-Bob wants to learn Alice’s secret correlation vector ****$s \in \mathbb{F}_2^k$, which she uses to compute the OT masking keys. If Bob learns $s$ he can decrypt both messages in future OTs, completely breaking OT security.
+Bob wants to learn Alice’s secret correlation vector $s \in \mathbb{F}_2^k$, which she uses to compute the OT masking keys. If Bob learns $s$ he can decrypt both messages in future OTs, completely breaking OT security.
 
 In the base OT phase of IKNP, for each column $i$ of the matrix  $T$, Bob is supposed to send a pair of messages: $(t^i, t^i \oplus r)$ where:
 
@@ -412,4 +413,4 @@ We will focus on the MPZ implementation of KOS15 which omits the final randomiza
 
 If random OT is desired (for use in correlated or random protocols), an additional randomization phase is required. The MPZ version skips this step.
 
-An example of MPZ implementation is available https://github.com/teddav/mpc-for-newbies
+An example of MPZ implementation is available [MPC for Newbies](https://github.com/teddav/mpc-for-newbies).
