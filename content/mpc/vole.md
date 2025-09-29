@@ -2,7 +2,7 @@
 
 Thanks a lot to [Geoffroy Couteau](http://geoffroycouteau.fr/) who helped me a lot in understanding some of these constructions
 
-![image.png](attachment:704c58a8-9a21-4858-8474-df84157773e3:image.png)
+![OLE](./static/VOLE/OLE.png)
 
 ## OLE
 
@@ -371,7 +371,7 @@ In the primal form, we generate noisy linear combinations of a secret vector:
 - $\vec{s} \in \{0,1\}^n$, the secret vector we’re committing to
 - $\vec{e} \in \{0,1\}^m$, a sparse noise vector
 
-![image.png](attachment:9890a327-3d8a-4d02-afc3-ead196f9a852:image.png)
+![LPN1](./static/VOLE/LPN1.png)
 
 Then we get:
 
@@ -383,7 +383,7 @@ Given only $G$ and $\vec{r}$, recovering $\vec{s}$ is surprisingly hard, thanks 
 
 Here’s a visual example with integers, coming from [Jun’s blog](https://medium.com/zkpass/learning-parity-with-noise-lpn-55450fd4969c), which gives a great explainer on the topic.
 
-![image.png](attachment:e405e604-87c5-4e44-8915-47fbb219bc76:image.png)
+![LPN2](./static/VOLE/LPN2.png)
 
 Even in small dimensions, the presence of a few random bit flips makes the problem hard to solve.
 
@@ -411,14 +411,14 @@ H \cdot \vec{r}
 \end{aligned}
 $$
 
-![image.png](attachment:9170eb34-b2de-493a-acc7-13e5a3792b51:image.png)
+![LPN3](./static/VOLE/LPN3.png)
 
 We now have:
 
 - $\vec{e} \in \{0,1\}^m$, a secret binary ($\mathbb{F}_2$) vector
 - $H \in \{0,1\}^{k \times m}$, a public binary matrix
 
-![image.png](attachment:6108eb8e-2225-40df-b348-f4d150a8ca40:image.png)
+![LPN4](./static/VOLE/LPN4.png)
 
 This new problem:
 
