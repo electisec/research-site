@@ -54,9 +54,9 @@ Let’s now explore these two use cases in more detail.
 
 ### OLE as a Commitment Scheme
 
-An **Oblivious Linear Evaluation** can be used for the sender (often called the *prover*) to commit to a hidden value $w$, typically a *witness*. This commitment has two key properties:
+An **Oblivious Linear Evaluation** can be used for the sender (often called the _prover_) to commit to a hidden value $w$, typically a _witness_. This commitment has two key properties:
 
-- **Hiding**: The receiver (or *verifier*) learns nothing about $w$
+- **Hiding**: The receiver (or _verifier_) learns nothing about $w$
 - **Binding**: Once the commitment is made, the prover cannot change the value of $w$ without being caught.
 
 How does this work?
@@ -82,7 +82,6 @@ If either $\Delta$ or $k$ is revealed, the security of the commitment collapses.
 This simple mechanism becomes even more powerful when we consider the **homomorphic** properties of OLE commitments: we can combine them without ever revealing the underlying values.
 
 > Note: In practice, protocols rarely involve just a single OLE. Instead, many OLEs are executed in parallel, all using the same fixed value $\Delta$, chosen by the verifier at the start of the protocol.
-> 
 
 ### Homomorphic Combination
 
@@ -171,7 +170,7 @@ Magic: the product is now split into two hidden pieces. No one ever saw both inp
 
 How does it work?
 
-You can find a working example in `m2a.py` over at https://github.com/teddav/mpc-for-newbies.
+You can find a working example in `m2a.py` over at https://github.com/teddav/mpc-by-hand.
 
 Let’s start simple. Suppose you want to compute $a*b$ (no hidden value here). You already know the binary representation of `b`.
 
@@ -281,11 +280,11 @@ A **Vector Oblivious Linear Evaluation** (VOLE) is an extension of OLE to vector
 Like OT and OLE, VOLE involves two parties. After running the VOLE protocol, each party holds the following:
 
 - Sender (or prover)
-    - $\vec{w} \in \mathbb{F}_p^N$ : a secret vector of values (the committed data)
-    - $\vec{m} \in \mathbb{F}_p^N$ : a random mask (used as a MAC to hide $\vec{w}$)
+  - $\vec{w} \in \mathbb{F}_p^N$ : a secret vector of values (the committed data)
+  - $\vec{m} \in \mathbb{F}_p^N$ : a random mask (used as a MAC to hide $\vec{w}$)
 - Receiver (or verifier)
-    - $\Delta \in \mathbb{F}_p$ : a fixed, secret scalar
-    - $\vec{k} \in \mathbb{F}_p^N$ : a vector of OLE outputs
+  - $\Delta \in \mathbb{F}_p$ : a fixed, secret scalar
+  - $\vec{k} \in \mathbb{F}_p^N$ : a vector of OLE outputs
 
 These values satisfy the following relation:
 
@@ -324,25 +323,25 @@ At its core, the GGM construction organizes the output of a PRG into a **binary 
 ```mermaid
 graph TD
     S[root seed]
-    
+
     S --> A0[Node A0]
     S --> A1[Node A1]
-    
+
     A0 --> B00[Node B00]
     A0 --> B01[Node B01]
-    
+
     A1 --> B10[Node B10]
     A1 --> B11[Node B11]
-    
+
     B00 --> C000[Node C000]
     B00 --> C001[Node C001]
-    
+
     B01 --> C010[Node C010]
     B01 --> C011[Node C011]
-    
+
     B10 --> C100[Node C100]
     B10 --> C101[Node C101]
-    
+
     B11 --> C110[Node C110]
     B11 --> C111[Node C111]
 ```
@@ -450,7 +449,7 @@ At first glance, this seems useless… but in fact, SPVOLE is the core component
 Recall that a GGM tree can expand a single seed into $N$ pseudorandom values. Here's the idea:
 
 - the **verifier** generates a GGM tree and gets all $N$ leaves
-- the **prover** wants to learn *all but one* of these leaves, the one corresponding to a secret index $\alpha$
+- the **prover** wants to learn _all but one_ of these leaves, the one corresponding to a secret index $\alpha$
 
 How can the prover get $N - 1$ values without revealing $\alpha$ ?
 
@@ -461,25 +460,25 @@ Below is a GGM tree with 8 leaves (depth 3). The prover selects a secret index $
 ```mermaid
 graph TD
     S[root seed]
-    
+
     S --> A0[Node A0]
     S --> A1[Node A1]
-    
+
     A0 --> B00[Node B00]
     A0 --> B01[Node B01]
-    
+
     A1 --> B10[Node B10]
     A1 --> B11[Node B11]
-    
+
     B00 --> C000[Node C000]
     B00 --> C001[Node C001]
-    
+
     B01 --> C010[Node C010]
     B01 --> C011[Node C011]
-    
+
     B10 --> C100[Node C100]
     B10 --> C101[Node C101]
-    
+
     B11 --> C110[Node C110]
     B11 --> C111[Node C111]
 
@@ -593,15 +592,13 @@ $$
 holds true.
 
 > **Punctured PRF**
-You might come across the term “punctured PRF” in the context of this construction.
-> 
-> 
+> You might come across the term “punctured PRF” in the context of this construction.
+>
 > The GGM tree doesn’t just give us pseudorandom values, it gives us structured access to them. By revealing certain seeds and withholding others, we can simulate access to a **punctured pseudorandom function (punctured PRF)**: a function that behaves like a random PRF everywhere except at one point, which remains unknown.
-> 
+>
 > This is exactly what we need for Silent VOLE functionality: the verifier evaluates a PRF at all $N$ points, while the prover gets access to every output except at a secret index $\alpha$.
 > That single “missing value” defines a sparse vector with a 1 at position $\alpha$ and 0s elsewhere. Perfect for constructing a single-point VOLE.
 > Best of all, this can be done with only $\log(N)$ OTs instead of $N$, thanks to the binary structure of the GGM tree.
-> 
 
 ### SPVOLE + GGM + LPN: large pseudorandom VOLE
 
@@ -672,13 +669,13 @@ You’ll often come across the term **"subfield VOLE"**, which can be a bit conf
 In a standard VOLE, the shares are defined over a single field $\mathbb{F}_p$
 
 - Prover has:
-    - $\vec{w} \in \mathbb{F}_p^N$ (secret values)
-    - $\vec{m} \in \mathbb{F}_p^N$ (the MACs)
+  - $\vec{w} \in \mathbb{F}_p^N$ (secret values)
+  - $\vec{m} \in \mathbb{F}_p^N$ (the MACs)
 - Verifier holds:
-    - $\Delta \in \mathbb{F}_p$ (global secret)
-    - $\vec{k} \in \mathbb{F}_p^N$ (the evaluations)
+  - $\Delta \in \mathbb{F}_p$ (global secret)
+  - $\vec{k} \in \mathbb{F}_p^N$ (the evaluations)
 
-Now, in **subfield VOLE**, the idea is to work in different ****fields.
+Now, in **subfield VOLE**, the idea is to work in different fields.
 
 Many times we’ll want to work in binary fields (for committed values $\vec{w}$), but for security we can’t have $\Delta$ in such a small field. So we work in an extension field.
 

@@ -5,34 +5,25 @@
 Oblivious transfer (OT) is a basic two-party cryptographic protocol between a sender, who holds a collection of messages, and a receiver, who wants to obtain some of them. In an OT, the receiver picks exactly which messages to learn but learns nothing about the others and the sender learns nothing about the receiver’s choice. Common flavors are:
 
 - 1-out-of-2 OT, where the sender has two messages and the receiver picks one;
-- 1-out-of-m OT, where the sender has $m$ messages and the receiver picks one;
+- 1-out-of-m OT, where the sender has $m$ $$messages and the receiver picks one;
 - n-out-of-m OT, where the receiver picks any $n$ of the sender’s $m$ messages.
 
 The choice of `n` and `m` depends entirely on the application’s needs.
 
-For example, imagine the sender has answers to 10 multiple-choice questions, and the receiver only wants the answer to question 3. OT lets them get that one answer, without the sender knowing which question they asked about, and without learning anything about the other 9 answers. 
+For example, imagine the sender has answers to 10 multiple-choice questions, and the receiver only wants the answer to question 3. OT lets them get that one answer, without the sender knowing which question they asked about, and without learning anything about the other 9 answers.
 
 ### OT variants
 
 The simplest type of OT is 1-out-of-2, where the sender has two messages, and the receiver picks one of them. There are several useful variations of this basic form:
 
 - Standard OT (Chosen-message OT): The sender chooses both messages, $m_0$ and $m_1$, and the receiver selects one ($m_b$ for some bit $b \in \{0,1\}$) without revealing their choice.
-    
-    ![OT](./static/OT/OT.png)
-
-    
-- Random OT (ROT): The two messages $m_0$ and $m_1$ are *not* chosen by the sender. Instead, the protocol itself generates them at random, and both the sender and receiver learn only their respective parts. This is often used as a building block for more advanced protocols.
-    
-    ![ROT](./static/OT/ROT.png)
-    
+  ![OT](./static/OT/OT.png)
+- Random OT (ROT): The two messages $m_0$ and $m_1$ are _not_ chosen by the sender. Instead, the protocol itself generates them at random, and both the sender and receiver learn only their respective parts. This is often used as a building block for more advanced protocols.
+  ![ROT](./static/OT/ROT.png)
 - Correlated OT (COT): The sender does not choose two completely independent messages. Instead, they choose one message $m_0$, and the second is computed as $m_1 = m_0 \oplus \Delta$, where $\Delta$ is a fixed correlation value. The receiver still learns only one of the two.
-    
-    ![COT](./static/OT/COT.png)
-    
+  ![COT](./static/OT/COT.png)
 - Random Correlated OT (RCOT): Like COT, the two messages are correlated using a value $\Delta$, but here $r_0$ is generated randomly by the protocol itself rather than chosen by the sender. So the pair looks like $(r, r \oplus \Delta)$, where $r$ is a random value.
-    
-    ![RCOT](./static/OT/RCOT.png)
-    
+  ![RCOT](./static/OT/RCOT.png)
 
 These variants are especially useful in practice, particularly in efficient implementations of OT extension (discussed later), where generating many lightweight OTs with specific properties is needed.
 
@@ -68,89 +59,75 @@ Let:
 - $g$ be the base point of an elliptic curve
 - $a$, $b$ be random private scalars chosen by the Sender and Receiver, respectively
 - $c \in \{0,1\}$ be the receiver’s choice bit
-1. Sender’s setup:
-The sender picks a random private key and computes their public key:
-    
-    $$
-     A = a ⋅ g 
-    $$
-    
-2. The Receiver sends to the receiver his public key $B$, based on his choice bit $c$:
+
+1.  Sender’s setup:
+    The sender picks a random private key and computes their public key:
+        $$
+         A = a ⋅ g
+        $$
+2.  The Receiver sends to the receiver his public key $B$, based on his choice bit $c$:
     - if $c = 0$
-        
-        $$
-         B = b ⋅ g
-        $$
-        
+      $$
+       B = b ⋅ g
+      $$
     - if $c = 1$
-        
-        $$
-        B = A + b⋅g 
-        $$
-        
-3. The Sender computes both keys:
-    
+      $$
+      B = A + b⋅g
+      $$
+3.  The Sender computes both keys:
+
     Using their private key $a$ and the received public key $B$, the sender computes:
-    
+
     $$
     \begin{aligned}
     &k_0 = hash(a ⋅ B) \\
     &k_1 = hash( a ⋅ (B - A))
     \end{aligned}
     $$
-    
+
     These are used as symmetric keys to encrypt messages
-    
-4. The Receiver computes a single key using his secret $b$: 
-    
+
+4.  The Receiver computes a single key using his secret $b$:
+
     $$
     k_r = hash(b ⋅ A) = hash(a⋅b⋅g)
     $$
-    
+
     This match exactly one of $k_0$ or $k_1$ depending on $c$.
     The receiver can decrypt one message, but gains no information about the other.
-    
 
 Let’s see what values the sender computes, and why only one matches the receiver’s key.
 
 - if $c = 0$:
-    - $B = b ⋅ g$
-    - Receiver  computes
-    
+  - $B = b ⋅ g$
+  - Receiver computes
+  $$
+  k_r = hash(b ⋅ A) = hash(a⋅b⋅g)
+  $$
+  - Sender computes
+    $$
+    \begin{aligned}
+         &k0 = hash(a ⋅ (b ⋅ g)) = hash(a ⋅ b ⋅ g) \leftarrow \text{matches } k_r\\
+        &k1 = hash(a ⋅ (b ⋅ g - a ⋅ g)) = hash(a ⋅ (b - a) ⋅ g)
+    \end{aligned}
+    $$
+- if $c = 1$:
+  - $B = A + b ⋅ g = a ⋅ g + b ⋅ g$
+  - Receiver computes:
     $$
     k_r = hash(b ⋅ A) = hash(a⋅b⋅g)
     $$
-    
-    - Sender computes
-        
-        $$
-        \begin{aligned}
-             &k0 = hash(a ⋅ (b ⋅ g)) = hash(a ⋅ b ⋅ g) \leftarrow \text{matches } k_r\\
-            &k1 = hash(a ⋅ (b ⋅ g - a ⋅ g)) = hash(a ⋅ (b - a) ⋅ g)
-        \end{aligned}
-        $$
-        
-- if $c = 1$:
-    - $B = A + b ⋅ g = a ⋅ g + b ⋅ g$
-    - Receiver computes:
-        
-        $$
-        k_r = hash(b ⋅ A) = hash(a⋅b⋅g)
-        $$
-        
-    - Sender computes:
-        
-        $$
-             \begin{aligned}
-        k0 &= hash(a ⋅ (A + b ⋅ g)) = hash(a ⋅ (a + b) ⋅ g) \\
-        k1 &= hash(a ⋅ (B - A))= hash(a ⋅ b ⋅ g) \leftarrow \text{matches } k_r
-        \end{aligned}
-        $$
-        
+  - Sender computes:
+    $$
+         \begin{aligned}
+    k0 &= hash(a ⋅ (A + b ⋅ g)) = hash(a ⋅ (a + b) ⋅ g) \\
+    k1 &= hash(a ⋅ (B - A))= hash(a ⋅ b ⋅ g) \leftarrow \text{matches } k_r
+    \end{aligned}
+    $$
 
 In both cases, only one key matches, depending on the receiver's choice $c$ and the sender cannot tell which one.
 
-A full implementation can be found in [MPC for Newbies](https://github.com/teddav/mpc-for-newbies).
+A full implementation can be found in [MPC by hand](https://github.com/teddav/mpc-by-hand)
 
 ## OT extensions
 
@@ -203,119 +180,101 @@ end
 ```
 
 1. The setup
-    
-    Alice inputs: $m$ pairs of messages of length $l$ bits
-    
-    Bob inputs: a choice bit vector $r∈\{0,1\}^m$
-    
+
+   Alice inputs: $m$ pairs of messages of length $l$ bits
+
+   Bob inputs: a choice bit vector $r∈\{0,1\}^m$
+
 2. Bob (Receiver in final OT) builds inputs for base OT
-    - Bob generate a matrix  $T∈\{0,1\}^{m \times k}$
+   - Bob generate a matrix $T∈\{0,1\}^{m \times k}$
      and construct inputs of the base OT like:
-        
-        $$
-        (t^i, t^i ⊕ r) \text{ for any column i} \\ 
-        $$
-        
-    - Bob acts as the sender in `k` base OTs, using each pair as the two possible messages.
+     $$
+     (t^i, t^i ⊕ r) \text{ for any column i} \\
+     $$
+   - Bob acts as the sender in `k` base OTs, using each pair as the two possible messages.
 3. Alice (sender in final OT) participates in base OT
-    - Alice generate a random bit vector $s∈\{0,1\}^k$
-    - She acts as the receiver in the base OTs with choosing bit $s_i$ in each.
-    - After the base OT, Alice will have received $k$ vectors of length $m$ and can construct the matrix $Q∈\{0,1\}^{m \times k}$  of size  $m * k$  that satisfy for each columns:
-        
-        $$
-        q^i = \begin{cases}
-           t^i &\text{if } s_i = 0 \\
-           t^i ⊕ r  &\text{if } s_i = 1
-        \end{cases}
-        $$
-        
-    
-    We can rework this equation into:
-    
-    $$
-    \begin{aligned}
-    q^i &= (s_i ⋅ r) ⊕ t^i \text{ for any column i} \\ 
-    q_j &= (s ⋅ r_j) ⊕ t_j  \text{ for any row j}
-    \end{aligned}
-    $$
-    
-    Where $s$ is Alice’s bit vector and $r_j∈\{0,1\}$ is Bob’s choice bit for row $j$. The base OT is now finished.
-    
-4. Now Alice wants to send $m_{0,j}$  and $m_{1,j}$ to Bob in a way that:
-    - Bob can decrypt only one of them (based on $r_j$)
-    - Alice doesn’t know which one
-    
-    For each OT index $j$:
-    
-    - Alice computes two keys:
-        
-        $$
-        \begin{aligned}
-        &k_0 = hash(j, q_j) \\
-        &k_1 = hash(j, q_j ⊕ s)
-        \end{aligned}
-        $$
-        
-        She uses there to encrypt:
-        
-        $$
-        \begin{aligned}c_0 &= m_{0,j} \oplus k_0 \\c_1 &= m_{1,j} \oplus k_1\end{aligned}
-        $$
-        
-    - Bob computes:
-        
-        $$
-        k_r = hash(j, t_j)
-        $$
-        
-        He then decrypts:
-        
-        $$
-        m_{r_j,j} = c_{r_j} \oplus k_r
-        $$
-        
+
+   - Alice generate a random bit vector $s∈\{0,1\}^k$
+   - She acts as the receiver in the base OTs with choosing bit $s_i$ in each.
+   - After the base OT, Alice will have received $k$ vectors of length $m$ and can construct the matrix $Q∈\{0,1\}^{m \times k}$ of size $m * k$ that satisfy for each columns:
+     $$
+     q^i = \begin{cases}
+        t^i &\text{if } s_i = 0 \\
+        t^i ⊕ r  &\text{if } s_i = 1
+     \end{cases}
+     $$
+
+   We can rework this equation into:
+
+   $$
+   \begin{aligned}
+   q^i &= (s_i ⋅ r) ⊕ t^i \text{ for any column i} \\
+   q_j &= (s ⋅ r_j) ⊕ t_j  \text{ for any row j}
+   \end{aligned}
+   $$
+
+   Where $s$ is Alice’s bit vector and $r_j∈\{0,1\}$ is Bob’s choice bit for row $j$. The base OT is now finished.
+
+4. Now Alice wants to send $m_{0,j}$ and $m_{1,j}$ to Bob in a way that:
+
+   - Bob can decrypt only one of them (based on $r_j$)
+   - Alice doesn’t know which one
+
+   For each OT index $j$:
+
+   - Alice computes two keys:
+     $$
+     \begin{aligned}
+     &k_0 = hash(j, q_j) \\
+     &k_1 = hash(j, q_j ⊕ s)
+     \end{aligned}
+     $$
+     She uses there to encrypt:
+     $$
+     \begin{aligned}c_0 &= m_{0,j} \oplus k_0 \\c_1 &= m_{1,j} \oplus k_1\end{aligned}
+     $$
+   - Bob computes:
+     $$
+     k_r = hash(j, t_j)
+     $$
+     He then decrypts:
+     $$
+     m_{r_j,j} = c_{r_j} \oplus k_r
+     $$
 
 This works because the key values align depending on Bob's bit $r_j$:
 
 - if $r = 0$:
-    - Alice has:
-        
-        $$
-        \begin{aligned}
-        q_j &= (s ⋅ 0) ⊕ t_j = t_j\\     
-        k_0 &= hash(j, t_j) \\
-            k_1 
-        &= hash(j, t_j ⊕ s)
-        \end{aligned}
-        $$
-        
-    - Bob computes:
-        
-        $$
-        k_r = hash(j, t_j) = k_0
-        $$
-        
-- if $r = 1$
-    - Alice has:
-    
+  - Alice has:
     $$
     \begin{aligned}
-    q_j &= s ⊕ t_j\\     
+    q_j &= (s ⋅ 0) ⊕ t_j = t_j\\
+    k_0 &= hash(j, t_j) \\
+        k_1
+    &= hash(j, t_j ⊕ s)
+    \end{aligned}
+    $$
+  - Bob computes:
+    $$
+    k_r = hash(j, t_j) = k_0
+    $$
+- if $r = 1$
+  - Alice has:
+    $$
+    \begin{aligned}
+    q_j &= s ⊕ t_j\\
     k_0 &= hash(j, t_j ⊕ s) \\
     k_1 &= hash(j, t_j)
     \end{aligned}
     $$
-    
-    - Bob computes:
-        
-        $$
-        k_r = hash(j, t_j) = k_1
-        $$
-        
+  - Bob computes:
+    $$
+    k_r = hash(j, t_j) = k_1
+    $$
 
 So Bob always gets exactly one key matching his choice, and Alice can’t tell which one he used.
 
-A full implementation can be found in [MPC for Newbies](https://github.com/teddav/mpc-for-newbies).
+A full implementation can be found in [MPC by hand](https://github.com/teddav/mpc-by-hand).
 
 ### KOS
 
@@ -325,28 +284,25 @@ Specifically, a malicious receiver (Bob) can exploit the base OT phase, where
 
 Bob wants to learn Alice’s secret correlation vector $s \in \mathbb{F}_2^k$, which she uses to compute the OT masking keys. If Bob learns $s$ he can decrypt both messages in future OTs, completely breaking OT security.
 
-In the base OT phase of IKNP, for each column $i$ of the matrix  $T$, Bob is supposed to send a pair of messages: $(t^i, t^i \oplus r)$ where:
+In the base OT phase of IKNP, for each column $i$ of the matrix $T$, Bob is supposed to send a pair of messages: $(t^i, t^i \oplus r)$ where:
 
 - $t^i \in \mathbb{F}_2^m$ is a random vector
-- $r \in \{0,1\}^m$ is Bob’s choice vector, used *consistently across all columns*
+- $r \in \{0,1\}^m$ is Bob’s choice vector, used _consistently across all columns_
 
-However, if Bob is malicious, he can cheat by using a different ****$r$ per column:
+However, if Bob is malicious, he can cheat by using a different $r$ per column:
 
 Suppose Bob wants to learn $s_1$ (the first bit of Alice's secret vector $s$). He can:
 
-1. In column 1, use the vector:
-$r^{(1)} = (1, 0, 0, \dots, 0)$
-    
-    That is, only the first row has a 1, the rest are 0.
-    
-2. This means the pair he sends becomes:
-$(t^1, t^1 \oplus r^{(1)})$
-3. When Alice selects either $t^1$ or $t^1 \oplus r^{(1)}$ depending on her bit $s_1$, she gets:
-    
+1.  In column 1, use the vector:
+    $r^{(1)} = (1, 0, 0, \dots, 0)$
+        That is, only the first row has a 1, the rest are 0.
+2.  This means the pair he sends becomes:
+    $(t^1, t^1 \oplus r^{(1)})$
+3.  When Alice selects either $t^1$ or $t^1 \oplus r^{(1)}$ depending on her bit $s_1$, she gets:
+
     $$
     q^1 = \begin{cases}t^1 & \text{if } s_1 = 0 \\t^1 \oplus r^{(1)} & \text{if } s_1 = 1\end{cases}
     $$
-    
 
 So:
 
@@ -368,49 +324,38 @@ If Bob knows (or guesses) either $m_0$ or $m_1$, he can invert the hash and reco
 - Break sender’s privacy
 - Undermine the security of all protocols relying on OT
 
-This is a critical failure, and exactly what KOS15 was designed to prevent.  
+This is a critical failure, and exactly what KOS15 was designed to prevent.
 
 To prevent this, KOS15 adds a correlation check step after the IKNP base phase. This check ensures that the receiver used a single, consistent choice vector $x$, without allowing them to tamper column-wise.
 
 We will focus on the MPZ implementation of KOS15 which omits the final randomization phase (needed only for ROT) and uses the optimized IKNP base from [ePrint 2016/602](https://eprint.iacr.org/2016/602.pdf). We suppose you have knowledge of the IKNP protocol.
 
 - The setup (modified IKNP): Alice and Bob execute the IKNP protocol up to but not including the final message hashing and output step. At the end both hold matrices:
-    - Bob: $T = [t_1, \dots, t_{\ell'}]$
-    - Alice: $Q = [q_1, \dots, q_{\ell'}]$
-    - Their rows satisfy:
-        
-        $$
-        t_j = q_j + x_j ⋅ \Delta
-        $$
-        
-    - $x_j \in \{0,1\}$ is Bob’s choice bit
-    - $\Delta \in \mathbb{F}_2^k$ is Alice’s hidden correlation string
+  - Bob: $T = [t_1, \dots, t_{\ell'}]$
+  - Alice: $Q = [q_1, \dots, q_{\ell'}]$
+  - Their rows satisfy:
+    $$
+    t_j = q_j + x_j ⋅ \Delta
+    $$
+  - $x_j \in \{0,1\}$ is Bob’s choice bit
+  - $\Delta \in \mathbb{F}_2^k$ is Alice’s hidden correlation string
 - The correlation check: to confirm that Bob used a single consistent x, a random linear check is performed.
-    - Bob (Receiver) computes:
-        
-        $$
-        x = \sum_{j = 1}^{l'} x_j \cdot \chi_j \text{ and } t = \sum_{j = 1}^{l'} t_j \cdot \chi_j
-        $$
-        
-        where  $\chi_j \in \mathbb{F}_2$ are random challenge bits (agreed by both parties).
-        
-        Bob sends $(x,t)$ to Alice
-        
-    - Alice (Sender) computes:
-        
-        $$
-        q = \sum_{j = 1}^{l'} q_j \cdot \chi_j \\
-        \text{and then checks} \\
-        t \stackrel{?}{=} q + x \cdot \Delta
-        $$
-        
-        If the equation holds: continue with OT
-        
-        If the check fails, it aborts: it means Bob tried to cheat.
-        
-        This check ensures that Bob committed to a single vector $x$ across all columns, preventing the column-wise cheating attack possible in IKNP.
-        
+  - Bob (Receiver) computes:
+    $$
+    x = \sum_{j = 1}^{l'} x_j \cdot \chi_j \text{ and } t = \sum_{j = 1}^{l'} t_j \cdot \chi_j
+    $$
+    where $\chi_j \in \mathbb{F}_2$ are random challenge bits (agreed by both parties).
+    Bob sends $(x,t)$ to Alice
+  - Alice (Sender) computes:
+    $$
+    q = \sum_{j = 1}^{l'} q_j \cdot \chi_j \\
+    \text{and then checks} \\
+    t \stackrel{?}{=} q + x \cdot \Delta
+    $$
+    If the equation holds: continue with OT
+    If the check fails, it aborts: it means Bob tried to cheat.
+    This check ensures that Bob committed to a single vector $x$ across all columns, preventing the column-wise cheating attack possible in IKNP.
 
 If random OT is desired (for use in correlated or random protocols), an additional randomization phase is required. The MPZ version skips this step.
 
-An example of MPZ implementation is available [MPC for Newbies](https://github.com/teddav/mpc-for-newbies).
+An example of MPZ implementation is available [MPC by hand](https://github.com/teddav/mpc-by-hand)
