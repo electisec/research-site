@@ -5,7 +5,7 @@
 Oblivious transfer (OT) is a basic two-party cryptographic protocol between a sender, who holds a collection of messages, and a receiver, who wants to obtain some of them. In an OT, the receiver picks exactly which messages to learn but learns nothing about the others and the sender learns nothing about the receiver’s choice. Common flavors are:
 
 - 1-out-of-2 OT, where the sender has two messages and the receiver picks one;
-- 1-out-of-m OT, where the sender has $m$ $$messages and the receiver picks one;
+- 1-out-of-m OT, where the sender has $m$ messages and the receiver picks one;
 - n-out-of-m OT, where the receiver picks any $n$ of the sender’s $m$ messages.
 
 The choice of `n` and `m` depends entirely on the application’s needs.
@@ -62,7 +62,7 @@ Let:
 
 1.  Sender’s setup:
     The sender picks a random private key and computes their public key:
-        $$
+    $$
          A = a ⋅ g
         $$
 2.  The Receiver sends to the receiver his public key $B$, based on his choice bit $c$:
@@ -101,9 +101,9 @@ Let’s see what values the sender computes, and why only one matches the receiv
 - if $c = 0$:
   - $B = b ⋅ g$
   - Receiver computes
-  $$
-  k_r = hash(b ⋅ A) = hash(a⋅b⋅g)
-  $$
+    $$
+    k_r = hash(b ⋅ A) = hash(a⋅b⋅g)
+    $$
   - Sender computes
     $$
     \begin{aligned}
@@ -295,7 +295,7 @@ Suppose Bob wants to learn $s_1$ (the first bit of Alice's secret vector $s$). H
 
 1.  In column 1, use the vector:
     $r^{(1)} = (1, 0, 0, \dots, 0)$
-        That is, only the first row has a 1, the rest are 0.
+    That is, only the first row has a 1, the rest are 0.
 2.  This means the pair he sends becomes:
     $(t^1, t^1 \oplus r^{(1)})$
 3.  When Alice selects either $t^1$ or $t^1 \oplus r^{(1)}$ depending on her bit $s_1$, she gets:
