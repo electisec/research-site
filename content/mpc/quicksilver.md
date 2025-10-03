@@ -1,4 +1,4 @@
-## How to build fast ZK proofs from MPC-friendly VOLE
+# How to build fast ZK proofs from MPC-friendly VOLE
 
 The **Quicksilver protocol** is a modern, highly efficient zero-knowledge proof system designed to work over **boolean circuits** using **VOLE-based commitments**. Introduced in 2021 in the paper
 
@@ -25,9 +25,9 @@ At a high level:
 - Inputs and outputs are all in $\mathbb{F}_2$
 - The circuit is made up of layers of logic gates
 - Each gate computes a simple function like:
-    - **AND**: $a \wedge b$
-    - **XOR**: $a \oplus b$
-    - …
+  - **AND**: $a \wedge b$
+  - **XOR**: $a \oplus b$
+  - …
 
 For example, a circuit that adds two 4-bit numbers would take 8 input bits, and produce a 5-bit result (the sum + carry). All intermediate steps, like carries and bitwise operations, are represented using logic gates.
 
@@ -52,43 +52,44 @@ It was introduced to make Boolean circuits easy to parse and reusable across dif
 A Bristol Fashion circuit description is a plain-text file with two main sections:
 
 1. **Header** defines:
-    - Number of gates
-    - Number of wires
-    - Number of inputs + length of each input
-    - Number of outputs + length of each output
-    
-    Example:
-    
-    ```
-    5 7
-    3 2 4 6
-    1 8
-    ```
-    
-    This means:
-    
-    - 5 gates
-    - 7 wires
-    - 3 inputs: first of length 2 bits, second is 4 bits, third is 6 bits
-    - 1 output of bits
+
+   - Number of gates
+   - Number of wires
+   - Number of inputs + length of each input
+   - Number of outputs + length of each output
+
+   Example:
+
+   ```
+   5 7
+   3 2 4 6
+   1 8
+   ```
+
+   This means:
+
+   - 5 gates
+   - 7 wires
+   - 3 inputs: first of length 2 bits, second is 4 bits, third is 6 bits
+   - 1 output of bits
+
 2. **Gate descriptions,** one per line:
-    
-    Each line describes:
-    
-    - Number of input wires
-    - Number of output wires
-    - Input wire indices
-    - Output wire indices
-    - Gate type (`AND`, `XOR`, or `INV`)
-    
-    ```
-    2 1 4 5 6 AND
-    2 1 7 8 9 XOR
-    ...
-    ```
-    
-    The first line means: AND gate, with 2 inputs (indices 4 and 5) and 1 output (index 6).
-    
+
+   Each line describes:
+
+   - Number of input wires
+   - Number of output wires
+   - Input wire indices
+   - Output wire indices
+   - Gate type (`AND`, `XOR`, or `INV`)
+
+   ```
+   2 1 4 5 6 AND
+   2 1 7 8 9 XOR
+   ...
+   ```
+
+   The first line means: AND gate, with 2 inputs (indices 4 and 5) and 1 output (index 6).
 
 ### Example
 
@@ -137,11 +138,11 @@ Let’s explore this equivalence.
 In binary, addition modulo 2 behaves exactly like XOR. Here's a truth table showing this:
 
 | input 1 | input 2 | XOR | addition (mod 2) |
-| --- | --- | --- | --- |
-| 0 | 0 | 0 | 0 |
-| 0 | 1 | 1 | 1 |
-| 1 | 0 | 1 | 1 |
-| 1 | 1 | 0 | 0 |
+| ------- | ------- | --- | ---------------- |
+| 0       | 0       | 0   | 0                |
+| 0       | 1       | 1   | 1                |
+| 1       | 0       | 1   | 1                |
+| 1       | 1       | 0   | 0                |
 
 Here’s a quick Python snippet to demonstrate it in practice:
 
@@ -165,11 +166,11 @@ assert ADD == XOR
 Similarly, a bitwise AND is equivalent to multiplication in $\mathbb{F}_2$. Here’s the truth table:
 
 | input 1 | input 2 | AND | multiplication |
-| --- | --- | --- | --- |
-| 0 | 0 | 0 | 0 |
-| 0 | 1 | 0 | 0 |
-| 1 | 0 | 0 | 0 |
-| 1 | 1 | 1 | 1 |
+| ------- | ------- | --- | -------------- |
+| 0       | 0       | 0   | 0              |
+| 0       | 1       | 0   | 0              |
+| 1       | 0       | 0   | 0              |
+| 1       | 1       | 1   | 1              |
 
 And again, a quick check in Python:
 
@@ -188,7 +189,7 @@ AND = [a[i] & b[i] for i in range(8)]
 assert MUL == AND
 ```
 
-This is especially relevant in *subfield VOLE*, where the prover's values lie in $\mathbb{F}_2$, so the circuit operates using simple boolean gates like AND and XOR. Even if the underlying VOLE protocol runs over a larger field like $\mathbb{F}_{2^k}$ the logic of the computation remains bitwise, each gate handles individual bits, not field elements.
+This is especially relevant in _subfield VOLE_, where the prover's values lie in $\mathbb{F}_2$, so the circuit operates using simple boolean gates like AND and XOR. Even if the underlying VOLE protocol runs over a larger field like $\mathbb{F}_{2^k}$ the logic of the computation remains bitwise, each gate handles individual bits, not field elements.
 
 ## Our circuit
 
@@ -208,14 +209,14 @@ graph BT
 	AND
 	XOR
 	end
-	
+
 	subgraph input
 	w0
 	w1
 	w2
 	w3
 	end
-	
+
 	subgraph output
 	w6
 	w7
@@ -235,14 +236,13 @@ graph BT
 	style AND fill:blue,color:#fff
 	style w4 fill:blue,color:#fff
 	style w6 fill:blue,color:#fff
-	
+
 	style XOR fill:green,color:#fff
 	style w5 fill:green,color:#fff
 	style w7 fill:green,color:#fff
 ```
 
 > ⚠️ Sorry, the wires may appear in a weird order, that’s due to Mermaid, and I either can’t control it or don’t know how to 😊
-> 
 
 ### Bristol fashion format
 
@@ -282,10 +282,10 @@ And here’s how you could implement the circuit in plain Python:
 def circuit(a, b):
 	w0, w1 = a
 	w2, w3 = b
-	
+
 	w4 = w0 & w2 # AND gate
 	w5 = w1 ^ w3 # XOR gate
-	
+
 	w6 = w1 & w5 # AND gate
 	w7 = w2 ^ w4 # XOR gate
 
@@ -449,10 +449,14 @@ If the original values satisfied the equation, the masked values will too. And t
 
 This simple trick gives us **zero-knowledge for free** from the VOLE functionality.
 
-## Code example
+## Show me the code!
 
-TODO: add some explanation?
-
-https://github.com/teddav/mpc-for-newbies/blob/master/quicksilver.sage
+You’ll find a full example, with comments, on how the procotol is run on the mpc-by-hand repo: https://github.com/teddav/mpc-by-hand/blob/master/quicksilver.sage
 
 ## Sources
+
+https://eprint.iacr.org/2021/076.pdf
+
+https://blog.chain.link/vole-based-zk/
+
+https://www.youtube.com/watch?v=U30lzH0k5f8
