@@ -17,13 +17,13 @@ For example, imagine the sender has answers to 10 multiple-choice questions, and
 The simplest type of OT is 1-out-of-2, where the sender has two messages, and the receiver picks one of them. There are several useful variations of this basic form:
 
 - Standard OT (Chosen-message OT): The sender chooses both messages, $m_0$ and $m_1$, and the receiver selects one ($m_b$ for some bit $b \in \{0,1\}$) without revealing their choice.
-  ![OT](./static/OT/OT.png)
+  ![OT](/mpc/OT/OT.png)
 - Random OT (ROT): The two messages $m_0$ and $m_1$ are _not_ chosen by the sender. Instead, the protocol itself generates them at random, and both the sender and receiver learn only their respective parts. This is often used as a building block for more advanced protocols.
-  ![ROT](./static/OT/ROT.png)
+  ![ROT](/mpc/OT/ROT.png)
 - Correlated OT (COT): The sender does not choose two completely independent messages. Instead, they choose one message $m_0$, and the second is computed as $m_1 = m_0 \oplus \Delta$, where $\Delta$ is a fixed correlation value. The receiver still learns only one of the two.
-  ![COT](./static/OT/COT.png)
+  ![COT](/mpc/OT/COT.png)
 - Random Correlated OT (RCOT): Like COT, the two messages are correlated using a value $\Delta$, but here $r_0$ is generated randomly by the protocol itself rather than chosen by the sender. So the pair looks like $(r, r \oplus \Delta)$, where $r$ is a random value.
-  ![RCOT](./static/OT/RCOT.png)
+  ![RCOT](/mpc/OT/RCOT.png)
 
 These variants are especially useful in practice, particularly in efficient implementations of OT extension (discussed later), where generating many lightweight OTs with specific properties is needed.
 
