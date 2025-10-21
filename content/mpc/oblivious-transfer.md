@@ -344,7 +344,7 @@ We will focus on the MPZ implementation of KOS15 which omits the final randomiza
     $$
     x = \sum_{j = 1}^{l'} x_j \cdot \chi_j \text{ and } t = \sum_{j = 1}^{l'} t_j \cdot \chi_j
     $$
-    where $\chi_j \in \mathbb{F}_2$ are random challenge bits (agreed by both parties).
+    where $\chi_j \in \mathbb{F}_2^k$ are random challenge (agreed by both parties).
     Bob sends $(x,t)$ to Alice
   - Alice (Sender) computes:
     $$
