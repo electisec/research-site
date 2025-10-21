@@ -249,7 +249,7 @@ export default function Document() {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-Q647YTPGSE');
+            gtag('config', 'G-E6FXP89314');
           `}
         </Script>
       </body>
