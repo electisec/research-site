@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import path from "path";
 import fs from "fs";
 import { processMarkdown } from "../lib/utils";
-import { Search } from "lucide-react";
+import { Search, Menu, X } from "lucide-react";
 import categoriesData from "../lib/categories.json";
 import Sidebar from "../components/Sidebar";
 import { 
@@ -41,7 +41,9 @@ export default function ResearchPage({
     content: SearchResult[];
   }>({ headings: [], content: [] });
   const [copiedLinkId, setCopiedLinkId] = useState<string | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const articleRef = useRef<HTMLElement>(null);
   const router = useRouter();
 
   // Parse content for search across all category pages
@@ -108,11 +110,20 @@ export default function ResearchPage({
     };
 
     router.events.on('routeChangeComplete', handleRouteChange);
-    
+
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, [router.events]);
+
+  // Reset scroll position when navigating to a different article
+  useEffect(() => {
+    if (articleRef.current) {
+      articleRef.current.scrollTop = 0;
+    }
+    // Close sidebar on mobile when navigating
+    setIsSidebarOpen(false);
+  }, [slug]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -159,22 +170,47 @@ export default function ResearchPage({
   };
 
   return (
-    <div className="max-w-6xl bg-background flex mx-auto">
-      <Sidebar category={category} currentSlug={slug} />
-      
-      <main className="flex-1 overflow-hidden">
-            <div className="relative max-w-2xl pl-6 my-2" ref={searchRef}>
-              <div className="absolute inset-y-0 left-0 pl-10 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-body" />
-              </div>
-              <input
-                type="text"
-                className="block w-full pl-10 pr-4 py-3 rounded-lg border bg-gray-50 border-gray-100 text-gray-500 focus:border-green-600 focus:outline-none"
-                placeholder="Search in content..."
-                value={searchQuery}
-                onChange={handleSearch}
-                onFocus={handleSearchFocus}
-              />
+    <div className="max-w-6xl bg-background flex mx-auto relative">
+      {/* Backdrop overlay for mobile */}
+      {isSidebarOpen && (
+        <div
+          className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
+      <Sidebar
+        category={category}
+        currentSlug={slug}
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
+
+      <main className="flex-1 overflow-hidden relative">
+            {/* Search bar container with hamburger menu on mobile */}
+            <div className="flex items-center gap-2 my-2 pl-2 md:pl-0">
+              {/* Mobile and tablet hamburger menu button */}
+              <button
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                className="md:hidden flex-shrink-0 p-2 bg-white border border-gray-200 rounded-md shadow-md hover:bg-gray-50"
+                aria-label="Toggle sidebar"
+              >
+                <Menu size={20} />
+              </button>
+
+              {/* Search bar */}
+              <div className="relative flex-1 max-w-2xl pl-4 md:pl-6" ref={searchRef}>
+                <div className="absolute inset-y-0 left-4 md:left-6 pl-3 flex items-center pointer-events-none">
+                  <Search className="h-5 w-5 text-body" />
+                </div>
+                <input
+                  type="text"
+                  className="block w-full pl-10 pr-4 py-3 rounded-lg border bg-gray-50 border-gray-100 text-gray-500 focus:border-green-600 focus:outline-none"
+                  placeholder="Search in content..."
+                  value={searchQuery}
+                  onChange={handleSearch}
+                  onFocus={handleSearchFocus}
+                />
               
               {/* Search Dropdown */}
               {isSearchOpen && (filteredHeadings.length > 0 || filteredContent.length > 0) && (
@@ -224,9 +260,10 @@ export default function ResearchPage({
                   </div>
                 </div>
               )}
+              </div>
             </div>
 
-          <article className="overflow-y-auto p-6" style={{ height: 'calc(100vh - 22px - 120px)' }}>
+            <article ref={articleRef} className="overflow-y-auto p-6" style={{ height: 'calc(100vh - 22px - 120px)' }}>
             <div
               className="prose prose-lg max-w-none prose-table:shadow-lg prose-table:border prose-td:p-2 prose-th:p-2 prose-a:text-title"
               dangerouslySetInnerHTML={{ __html: content }}

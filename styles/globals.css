@@ -137,6 +137,23 @@ code {
   color: #1e293b !important;
 }
 
+/* Prevent text truncation in mermaid nodes */
+.prose .mermaid .nodeLabel,
+.prose .mermaid .node text,
+.prose .mermaid tspan {
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+
+/* Ensure nodes are large enough for their labels */
+.prose .mermaid .node rect,
+.prose .mermaid .node circle,
+.prose .mermaid .node ellipse,
+.prose .mermaid .node polygon {
+  min-width: fit-content !important;
+}
+
 /* Hide mermaid error notifications */
 [id*="mermaidError"],
 [class*="mermaidError"],

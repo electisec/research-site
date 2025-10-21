@@ -91,6 +91,14 @@ export default function Document() {
           errorMessage: '',
           errorRenderer: () => '',
         },
+        flowchart: {
+          htmlLabels: true,
+          curve: 'basis',
+          padding: 15,
+          nodeSpacing: 50,
+          rankSpacing: 50,
+          useMaxWidth: true
+        },
         themeVariables: {
           primaryColor: '#f8fafc',
           primaryTextColor: '#1e293b',
@@ -103,7 +111,7 @@ export default function Document() {
           secondBkg: '#e2e8f0',
           tertiaryBkg: '#cbd5e1',
           fontFamily: 'Arial, sans-serif',
-          fontSize: '14px',
+          fontSize: '16px',
           darkMode: false,
           // Node styling
           nodeBkg: '#f8fafc',

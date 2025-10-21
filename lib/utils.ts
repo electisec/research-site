@@ -84,12 +84,71 @@ function remarkTrimBackticks() {
       if (value.startsWith('`') && value.endsWith('`') && value.startsWith('```') === false) {
         node.value = value.slice(1, -1);
       }
-      
+
       // Add classes for styling
       node.data = node.data || {};
       node.data.hProperties = {
         className: 'inline-code-block'
       };
+    });
+  };
+}
+
+// Helper function to recursively extract all text content from AST nodes
+function extractTextContent(node: any): string {
+  if (!node) return '';
+
+  if (node.type === 'text') {
+    return node.value || '';
+  }
+
+  if (node.children && Array.isArray(node.children)) {
+    return node.children.map((child: any) => extractTextContent(child)).join('');
+  }
+
+  return '';
+}
+
+// Custom rehype plugin to convert mermaid code blocks to div elements
+function rehypeMermaid() {
+  return (tree: any) => {
+    visit(tree, 'element', (node: any, index: number | undefined, parent: any) => {
+      // Look for pre > code.mermaid structure
+      if (
+        node.tagName === 'pre' &&
+        node.children &&
+        node.children.length > 0 &&
+        node.children[0].tagName === 'code'
+      ) {
+        const codeNode = node.children[0];
+        const classes = codeNode.properties?.className || [];
+
+        // Check if this is a mermaid code block
+        if (classes.includes('mermaid') || classes.includes('language-mermaid')) {
+          // Get the text content from the code block recursively
+          const content = extractTextContent(codeNode);
+
+          // Replace the pre element with a div.mermaid containing the raw text
+          const mermaidDiv = {
+            type: 'element',
+            tagName: 'div',
+            properties: {
+              className: ['mermaid', 'no-highlight']
+            },
+            children: [
+              {
+                type: 'text',
+                value: content
+              }
+            ]
+          };
+
+          // Replace in parent
+          if (parent && typeof index === 'number') {
+            parent.children[index] = mermaidDiv;
+          }
+        }
+      }
     });
   };
 }
@@ -121,6 +180,7 @@ export async function processMarkdown(content: string) {
       throwOnError: false,
       displayMode: false,
     })
+    .use(rehypeMermaid) // Convert mermaid code blocks to div elements
     .use(rehypeHighlight)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(cleanedContent);
