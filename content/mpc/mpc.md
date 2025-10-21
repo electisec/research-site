@@ -30,7 +30,7 @@ OT works for binary choices, but what about arithmetic over larger fields?
 
 **Oblivious Linear Evaluation (OLE)** lets parties compute affine functions: one holds $(w,m)$, the other holds $\Delta$, establishing $k = w \cdot \Delta + m$ without revealing inputs.
 
-Running many OLEs in parallel with the same $\Delta$ gives **Vector OLE (VOLE)**—the arithmetic analogue of OT extension. VOLE unlocks homomorphic properties: commitments can be added, multiplied by constants, and verified without revealing values. It's an information-theoretic MAC over finite fields.
+Running many OLEs in parallel with the same $\Delta$ gives **Vector OLE (VOLE)** - the arithmetic analogue of OT extension. VOLE unlocks homomorphic properties: commitments can be added, multiplied by constants, and verified without revealing values. It's an information-theoretic MAC over finite fields.
 
 VOLE commitments are **binding** (can't change values), **hiding** (verifier learns nothing), and **homomorphic** (compute algebraically). Perfect for verifiable computation.
 
@@ -54,3 +54,5 @@ The progression:
 - **2020s**: VOLE-based ZK (Quicksilver, Mac'n'Cheese), post-quantum MPC
 
 Each generation builds on the last. If you're building privacy-preserving systems, these primitives are essential.
+
+***Research by [Oba](https://github.com/obatirou) and [teddav](https://github.com/teddav) of [Electisec](https://electisec.com).*

@@ -64,7 +64,7 @@ Let:
     The sender picks a random private key and computes their public key:
     $$
          A = a ⋅ g
-        $$
+    $$
 2.  The Receiver sends to the receiver his public key $B$, based on his choice bit $c$:
     - if $c = 0$
       $$
