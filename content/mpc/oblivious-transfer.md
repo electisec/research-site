@@ -44,7 +44,7 @@ A widely used protocol for base OT is the [Chou-Orlandi protocol (2015)](https:
 
 ### Chou-Orlandi
 
-The Chou-Orlandi protocol is an efficient implementation of 1-out-of-2 chosen-message Oblivious Transfer (OT) based on elliptic curve cryptography. It is designed to be fast and easy to batch, which makes it widely used in practice. A batched version of this protocol is implemented in the [MPZ library](https://github.com/privacy-ethereum/mpz/tree/8a57d9891e1941405c31f1b53266e96181b31b26/crates/ot-core/src).
+The Chou-Orlandi protocol is an efficient implementation of 1-out-of-2 chosen-message Oblivious Transfer (OT) based on elliptic curve cryptography. It is designed to be fast and easy to batch, which makes it widely used in practice. A batched version of this protocol is implemented in the [MPZ library](https://github.com/privacy-ethereum/mpz/tree/60987f6d85652d9b7ec744e6fe73974d809c325b/crates/ot-core/src).
 
 In this protocol, the Sender holds two messages and wants to send exactly one of them to the Receiver, depending on the Receiver’s choice bit, without learning which message was chosen. To achieve this, the protocol derives two shared secret keys through an Elliptic Curve Diffie-Hellman (ECDH) style exchange: one key corresponds to each message.
 
@@ -142,7 +142,7 @@ The most widely used OT extension protocol is IKNP, which is secure in the sem
 
 For stronger security against actively malicious parties, the KOS protocol extends IKNP with additional checks to detect cheating.
 
-### IKPN
+### IKNP
 
 The IKNP protocol is an efficient OT extension that lets two parties generate a large number of 1-out-of-2 OTs using only a small number of expensive base OTs. It operates in the semi-honest model, where both parties follow the protocol but may try to learn additional information.
 
@@ -359,3 +359,10 @@ We will focus on the MPZ implementation of KOS15 which omits the final randomiza
 If random OT is desired (for use in correlated or random protocols), an additional randomization phase is required. The MPZ version skips this step.
 
 An example of MPZ implementation is available [MPC by hand](https://github.com/teddav/mpc-by-hand)
+
+## Sources
+* [Chou-Orlandi](https://eprint.iacr.org/2015/267.pdf)
+* [IKNP](https://www.iacr.org/archive/crypto2003/27290145/27290145.pdf)
+* [KOS15](https://eprint.iacr.org/archive/2015/546/1433798896.pdf)
+* [Efficient Actively Secure OT Extension: 5 Years Later](https://www.nist.gov/video/mpts-2020-talk-2b1-efficient-actively-secure-ot-extension-5-years-later)
+* [MPZ library](https://github.com/privacy-ethereum/mpz/tree/60987f6d85652d9b7ec744e6fe73974d809c325b/crates/ot-core/src)
