@@ -31,14 +31,14 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="w-full flex h-22 items-center justify-between top-0 py-6">
+      <nav className="w-full flex h-22 items-center max-w-6xl justify-between align-center top-0 py-6 m-auto">
         {/* Logo section */}
-        <div className="flex flex-row gap-4 text-primary items-center text-xl lg:ml-[20vw] ml-4">
-          <Link href="https://electisec.com/">
+        <div className="flex flex-row gap-4 text-primary items-center text-xl ml-4">
+          <Link href="https://electisec.com/" className="flex-shrink-0">
             <img
               alt="Logo"
               src="/logo.png"
-              className="h-10"
+              className="h-10 md:h-12 lg:h-10 w-auto min-w-[120px] md:min-w-[150px] lg:min-w-[180px]"
             />
           </Link>
         </div>
@@ -53,7 +53,7 @@ const Navbar = () => {
         </button>
 
         {/* Desktop menu */}
-        <div className="hidden lg:flex flex-row items-center gap-1 lg:mr-[20vw]">
+        <div className="hidden lg:flex flex-row items-center gap-1">
           <Link href="https://reports.electisec.com/">
             <Button text="Reports" />
           </Link>
