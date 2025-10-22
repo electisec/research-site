@@ -1,12 +1,24 @@
 {
   "categories": {
     "proxies": {
-      "title": "Electisec Proxies Research",
-      "description": "Comprehensive guide to smart contract proxy patterns, security vulnerabilities, and best practices for Web3 developers and auditors.",
-      "contentSource": "markdown",
+      "title": "Proxies",
+      "description": "Comprehensive security analysis of smart contract proxy patterns, upgradability mechanisms, and vulnerabilities with real-world hacks and practical testing procedures for auditors and developers.",
       "contentPath": "content/proxies",
+      "authors": [
+        {
+          "name": "engn33r",
+          "twitter": "https://twitter.com/bl4ckb1rd71",
+          "avatar": "https://avatars.githubusercontent.com/engn33r"
+        },
+        {
+          "name": "devtooligan",
+          "url": "https://github.com/devtooligan",
+          "avatar": "https://avatars.githubusercontent.com/devtooligan"
+        }
+      ],
       "seo": {
         "title": "Electisec Proxies Research | Smart Contract Proxy Patterns & Security",
+        "description": "Comprehensive security analysis of smart contract proxy patterns, upgradability mechanisms, and vulnerabilities with real-world hacks and practical testing procedures for auditors and developers.",
         "keywords": [
           "smart contracts",
           "proxy patterns", 
@@ -17,18 +29,78 @@
           "delegatecall",
           "upgradeable contracts",
           "proxy vulnerabilities",
-          "smart contract auditing"
+          "smart contract auditing",
+          "delegation pattern",
+          "proxy delegate",
+          "upgradability",
+          "transparent proxy",
+          "UUPS proxy",
+          "beacon proxy",
+          "diamond proxy",
+          "metamorphic contracts",
+          "storage collision",
+          "proxy security",
+          "EIP-1967",
+          "OpenZeppelin",
+          "solidity security",
+          "smart contract upgrade",
+          "proxy implementation",
+          "calldata forwarding"
         ],
-        "baseUrl": "https://research.electisec.com/proxies"
+        "baseUrl": "https://research.electisec.com/proxies",
+        "ogImage": "/proxies/og-image.png",
+        "twitterCard": "summary_large_image",
+        "author": "Electisec Research Team",
+        "category": "Smart Contract Security",
+        "tags": [
+          "Smart Contracts",
+          "Security Research",
+          "Proxy Patterns",
+          "Ethereum",
+          "Web3",
+          "Blockchain Security",
+          "Solidity",
+          "DeFi Security"
+        ]
+      },
+      "structure": {
+        "proxies": "Proxies Research",
+        "proxy-basics": "Proxies Basics",
+        "proxies-list": {
+          "title": "Proxies Deep Dive",
+          "subpages": {
+        "proxies-storage": "Proxies Storage",
+        "proxies-table": "Proxies Table",
+        "delegatecall-history": "History of Callcode and Delegatecall"
+          }
+        },
+        "security-guide": {
+          "title": "Security Guide to Proxy Vulnerabilities",
+          "subpages": {
+        "proxy-identification": "Proxy Identification Guide"
+          }
+        }
       }
     },
     "mpc": {
-      "title": "Electisec MPC Research",
-      "description": "Advanced research on multi-party computation protocols, privacy-preserving technologies, and cryptographic security analysis.",
-      "contentSource": "markdown",
+      "title": "Multi Party Computation",
+      "description": "Advanced cryptographic research on multi-party computation protocols, oblivious transfer extensions, and privacy-preserving technologies bridging academic research with practical deployment",
       "contentPath": "content/mpc",
+      "authors": [
+        {
+          "name": "Oba",
+          "twitter": "https://github.com/obatirou",
+          "avatar": "https://avatars.githubusercontent.com/u/92337658"
+        },
+        {
+          "name": "teddav",
+          "twitter": "https://github.com/teddav",
+          "avatar": "https://avatars.githubusercontent.com/u/9486739?v=4"
+        }
+      ],
       "seo": {
         "title": "Electisec MPC Research | Multi-Party Computation Security",
+        "description": "Advanced cryptographic research on multi-party computation protocols, oblivious transfer extensions, and privacy-preserving technologies bridging academic research with practical deployment.",
         "keywords": [
           "multi-party computation",
           "MPC protocols",
@@ -37,9 +109,46 @@
           "Electisec",
           "security research",
           "blockchain privacy",
-          "cryptography"
+          "cryptography",
+          "oblivious transfer",
+          "VOLE",
+          "vector oblivious linear evaluation",
+          "quicksilver protocol",
+          "secure computation",
+          "zero knowledge",
+          "threshold cryptography",
+          "homomorphic encryption",
+          "garbled circuits",
+          "secret sharing",
+          "secure multiparty computation",
+          "privacy-preserving machine learning",
+          "differential privacy",
+          "federated learning",
+          "cryptographic protocols",
+          "applied cryptography",
+          "protocol security analysis"
         ],
-        "baseUrl": "https://research.electisec.com/mpc"
+        "baseUrl": "https://research.electisec.com/mpc",
+        "ogImage": "/mpc/og-image.png",
+        "twitterCard": "summary_large_image",
+        "author": "Electisec Research Team",
+        "category": "Cryptographic Security",
+        "tags": [
+          "Cryptography",
+          "Security Research", 
+          "Multi-Party Computation",
+          "Privacy-Preserving",
+          "Applied Cryptography",
+          "Protocol Analysis",
+          "Blockchain Privacy",
+          "Zero Knowledge"
+        ],
+        "structure": {
+        "mpc": "MPC Research",
+        "oblivious-transfer": "Oblivious Transfer",
+        "vole": "VOLE",
+        "quicksilver": "Quicksilver"
+      }
       }
     }
   }
