@@ -16,6 +16,18 @@ import {
   type CategoryContent
 } from "../lib/search";
 
+type CategoryEntry = (typeof categoriesData.categories)[keyof typeof categoriesData.categories];
+
+const hasContentPath = (
+  category: CategoryEntry
+): category is CategoryEntry & { contentPath: string } =>
+  typeof (category as { contentPath?: unknown }).contentPath === "string";
+
+const isExternalCategory = (
+  category: CategoryEntry
+): category is CategoryEntry & { external: true; href?: string } =>
+  (category as { external?: boolean }).external === true;
+
 interface ResearchPageProps {
   title: string;
   content: string;
@@ -286,14 +298,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   // Add category routes (proxies, mpc)
   Object.entries(categoriesData.categories).forEach(([categoryKey, categoryValue]) => {
-    if (categoryValue && !(categoryValue as any).external) {
+    if (categoryValue && !isExternalCategory(categoryValue)) {
       paths.push({ params: { slug: categoryKey } });
     }
   });
 
   // Add individual content files from each category
   Object.values(categoriesData.categories).forEach((categoryData) => {
-    if ((categoryData as any).external || !categoryData.contentPath) {
+    if (isExternalCategory(categoryData) || !hasContentPath(categoryData)) {
       return;
     }
 
@@ -334,16 +346,16 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const categoryData = categoriesData.categories[slug as keyof typeof categoriesData.categories];
 
     if (categoryData) {
-      if ((categoryData as any).external) {
+      if (isExternalCategory(categoryData)) {
         return {
           redirect: {
-            destination: (categoryData as any).href || "/",
+            destination: categoryData.href || "/",
             permanent: false,
           },
         };
       }
 
-      if (!categoryData.contentPath) {
+      if (!hasContentPath(categoryData)) {
         return {
           notFound: true,
         };
@@ -405,7 +417,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     // Check in each category's content path
     for (const [categoryKey, categoryInfo] of Object.entries(categoriesData.categories)) {
-      if ((categoryInfo as any).external || !categoryInfo.contentPath) {
+      if (isExternalCategory(categoryInfo) || !hasContentPath(categoryInfo)) {
         continue;
       }
 
@@ -449,7 +461,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     if (category && categoriesData.categories[category as keyof typeof categoriesData.categories]) {
       const categoryInfo = categoriesData.categories[category as keyof typeof categoriesData.categories];
-      if (!(categoryInfo as any).external && categoryInfo.contentPath) {
+      if (categoryInfo && !isExternalCategory(categoryInfo) && hasContentPath(categoryInfo)) {
         const categoryPath = path.join(process.cwd(), categoryInfo.contentPath);
 
         if (fs.existsSync(categoryPath)) {
