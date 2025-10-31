@@ -13,8 +13,10 @@ interface Author {
 interface ResearchCategory {
   title: string;
   description: string;
-  contentPath: string;
-  authors: Author[];
+  contentPath?: string;
+  authors?: Author[];
+  href?: string;
+  external?: boolean;
   seo: {
     title: string;
     keywords: string[];
@@ -30,7 +32,7 @@ export default function Home({ categories }: HomeProps) {
 
   return (
     <div className="bg-background">
-      <main className="max-w-6xl mx-auto py-12 sm:px-6 lg:px-8">
+      <main className="max-w-7xl mx-auto py-12 sm:px-4 lg:px-6">
         {/* Hero Section */}
         <div className="px-4 sm:px-0 mb-20 text-center">
           <h1 className="text-6xl font-bold text-title mb-4">Explore <span className="text-green-600">Research</span></h1>
@@ -39,14 +41,16 @@ export default function Home({ categories }: HomeProps) {
 
         {/* Research Categories Section */}
         <div className="px-4 sm:px-0 mb-12">
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {Object.entries(categories)?.map(([key, category]) => (
               <ResearchCard
                 key={key}
-                category={key as "proxies" | "mpc"}
+                category={key}
                 title={category.title}
                 description={category.description}
                 authors={category.authors}
+                href={category.href ?? `/${key}`}
+                external={category.external}
               />
             ))}
           </div>

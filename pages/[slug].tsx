@@ -7,13 +7,13 @@ import { processMarkdown } from "../lib/utils";
 import { Search, Menu, X } from "lucide-react";
 import categoriesData from "../lib/categories.json";
 import Sidebar from "../components/Sidebar";
-import { 
-  parseContentForSearch, 
-  fuzzySearch, 
-  copyHeadingLink, 
+import {
+  parseContentForSearch,
+  fuzzySearch,
+  copyHeadingLink,
   handleAnchorNavigation,
   type SearchResult,
-  type CategoryContent 
+  type CategoryContent
 } from "../lib/search";
 
 interface ResearchPageProps {
@@ -50,13 +50,13 @@ export default function ResearchPage({
   useEffect(() => {
     const results = parseContentForSearch(content, categoryContent, slug, _title);
     setSearchResults({ headings: results.headings, content: results.content });
-    
+
     // Update the DOM with processed content
     setTimeout(() => {
       const articleElement = document.querySelector('.prose');
       if (articleElement) {
         articleElement.innerHTML = results.processedContent;
-        
+
         // Add click listeners to heading link icons
         const linkIcons = articleElement.querySelectorAll('.heading-link');
         linkIcons.forEach((icon) => {
@@ -75,7 +75,7 @@ export default function ResearchPage({
 
         // Handle anchor navigation from URL
         handleAnchorNavigation();
-        
+
         // Initialize mermaid diagrams
         if (typeof window !== 'undefined' && (window as any).initMermaid) {
           (window as any).initMermaid();
@@ -90,7 +90,7 @@ export default function ResearchPage({
 
     // Handle hash change events
     window.addEventListener('hashchange', handleHashChange);
-    
+
     // Handle initial load with hash
     if (window.location.hash) {
       handleHashChange();
@@ -154,7 +154,7 @@ export default function ResearchPage({
   const handleResultClick = (id: string, resultSlug: string) => {
     setIsSearchOpen(false);
     setSearchQuery('');
-    
+
     if (resultSlug === slug) {
       // Same page - scroll to element
       setTimeout(() => {
@@ -211,7 +211,7 @@ export default function ResearchPage({
                   onChange={handleSearch}
                   onFocus={handleSearchFocus}
                 />
-              
+
               {/* Search Dropdown */}
               {isSearchOpen && (filteredHeadings.length > 0 || filteredContent.length > 0) && (
                 <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-96 overflow-hidden">
@@ -236,7 +236,7 @@ export default function ResearchPage({
                         <div className="text-gray-500 text-sm">No headings found</div>
                       )}
                     </div>
-                    
+
                     {/* Content Section (3/4) */}
                     <div className="w-3/4 p-3 overflow-y-auto">
                       <h4 className="text-sm font-semibold text-gray-700 mb-2">Content</h4>
@@ -268,7 +268,7 @@ export default function ResearchPage({
               className="prose prose-lg max-w-none prose-table:shadow-lg prose-table:border prose-td:p-2 prose-th:p-2 prose-a:text-title"
               dangerouslySetInnerHTML={{ __html: content }}
             />
-            
+
             {/* Copy success notification */}
             {copiedLinkId && (
               <div className="fixed top-20 right-4 bg-green-600 text-white px-3 py-2 rounded-md shadow-lg z-50 text-sm">
@@ -283,16 +283,22 @@ export default function ResearchPage({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths: { params: { slug: string } }[] = [];
-  
+
   // Add category routes (proxies, mpc)
-  Object.keys(categoriesData.categories).forEach(categoryKey => {
-    paths.push({ params: { slug: categoryKey } });
+  Object.entries(categoriesData.categories).forEach(([categoryKey, categoryValue]) => {
+    if (categoryValue && !(categoryValue as any).external) {
+      paths.push({ params: { slug: categoryKey } });
+    }
   });
-  
+
   // Add individual content files from each category
   Object.values(categoriesData.categories).forEach((categoryData) => {
+    if ((categoryData as any).external || !categoryData.contentPath) {
+      return;
+    }
+
     const categoryPath = path.join(process.cwd(), categoryData.contentPath);
-    
+
     if (fs.existsSync(categoryPath)) {
       const filenames = fs.readdirSync(categoryPath);
       filenames
@@ -302,7 +308,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         });
     }
   });
-  
+
   // Add files from root content directory
   const contentDirectory = path.join(process.cwd(), "content");
   if (fs.existsSync(contentDirectory)) {
@@ -323,15 +329,30 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
     const slug = params?.slug as string;
-    
+
     // Check if this is a category route (proxies, mpc)
     const categoryData = categoriesData.categories[slug as keyof typeof categoriesData.categories];
-    
+
     if (categoryData) {
+      if ((categoryData as any).external) {
+        return {
+          redirect: {
+            destination: (categoryData as any).href || "/",
+            permanent: false,
+          },
+        };
+      }
+
+      if (!categoryData.contentPath) {
+        return {
+          notFound: true,
+        };
+      }
+
       // This is a category page, load home.md from the category directory
       const categoryPath = path.join(process.cwd(), categoryData.contentPath);
       const homeFilePath = path.join(categoryPath, 'home.md');
-      
+
       if (fs.existsSync(homeFilePath)) {
         const fileContent = fs.readFileSync(homeFilePath, "utf8");
         const { frontMatter, content } = await processMarkdown(fileContent);
@@ -352,7 +373,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
               const filePath = path.join(categoryPath, filename);
               const fileContent = fs.readFileSync(filePath, "utf8");
               const { frontMatter, content: pageContent } = await processMarkdown(fileContent);
-              
+
               categoryContent.push({
                 slug: filename.replace('.md', ''),
                 title: frontMatter.title || filename.replace('.md', ''),
@@ -377,23 +398,27 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         };
       }
     }
-    
+
     // This is an individual content page, determine which category it belongs to
     let category = '';
     let filePath = '';
-    
+
     // Check in each category's content path
     for (const [categoryKey, categoryInfo] of Object.entries(categoriesData.categories)) {
+      if ((categoryInfo as any).external || !categoryInfo.contentPath) {
+        continue;
+      }
+
       const categoryPath = path.join(process.cwd(), categoryInfo.contentPath);
       const potentialFilePath = path.join(categoryPath, `${slug}.md`);
-      
+
       if (fs.existsSync(potentialFilePath)) {
         category = categoryKey;
         filePath = potentialFilePath;
         break;
       }
     }
-    
+
     // If not found in category folders, check root content folder
     if (!filePath) {
       const contentDirectory = path.join(process.cwd(), "content");
@@ -403,7 +428,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         category = 'general';
       }
     }
-    
+
     if (!filePath) {
       return {
         notFound: true,
@@ -424,23 +449,25 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     if (category && categoriesData.categories[category as keyof typeof categoriesData.categories]) {
       const categoryInfo = categoriesData.categories[category as keyof typeof categoriesData.categories];
-      const categoryPath = path.join(process.cwd(), categoryInfo.contentPath);
-      
-      if (fs.existsSync(categoryPath)) {
-        const filenames = fs.readdirSync(categoryPath);
-        for (const filename of filenames) {
-          if (filename.endsWith('.md') && filename.replace('.md', '') !== slug) {
-            const otherFilePath = path.join(categoryPath, filename);
-            const otherFileContent = fs.readFileSync(otherFilePath, "utf8");
-            const { frontMatter: otherFrontMatter, content: otherContent } = await processMarkdown(otherFileContent);
-            
-            categoryContent.push({
-              slug: filename.replace('.md', ''),
-              title: otherFrontMatter.title || filename.replace('.md', ''),
-              content: otherContent || "",
-              headings: [],
-              contentElements: []
-            });
+      if (!(categoryInfo as any).external && categoryInfo.contentPath) {
+        const categoryPath = path.join(process.cwd(), categoryInfo.contentPath);
+
+        if (fs.existsSync(categoryPath)) {
+          const filenames = fs.readdirSync(categoryPath);
+          for (const filename of filenames) {
+            if (filename.endsWith('.md') && filename.replace('.md', '') !== slug) {
+              const otherFilePath = path.join(categoryPath, filename);
+              const otherFileContent = fs.readFileSync(otherFilePath, "utf8");
+              const { frontMatter: otherFrontMatter, content: otherContent } = await processMarkdown(otherFileContent);
+
+              categoryContent.push({
+                slug: filename.replace('.md', ''),
+                title: otherFrontMatter.title || filename.replace('.md', ''),
+                content: otherContent || "",
+                headings: [],
+                contentElements: []
+              });
+            }
           }
         }
       }
