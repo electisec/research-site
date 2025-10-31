@@ -21,7 +21,7 @@
         "description": "Comprehensive security analysis of smart contract proxy patterns, upgradability mechanisms, and vulnerabilities with real-world hacks and practical testing procedures for auditors and developers.",
         "keywords": [
           "smart contracts",
-          "proxy patterns", 
+          "proxy patterns",
           "Web3 security",
           "Ethereum",
           "blockchain",
@@ -69,15 +69,15 @@
         "proxies-list": {
           "title": "Proxies Deep Dive",
           "subpages": {
-        "proxies-storage": "Proxies Storage",
-        "proxies-table": "Proxies Table",
-        "delegatecall-history": "History of Callcode and Delegatecall"
+            "proxies-storage": "Proxies Storage",
+            "proxies-table": "Proxies Table",
+            "delegatecall-history": "History of Callcode and Delegatecall"
           }
         },
         "security-guide": {
           "title": "Security Guide to Proxy Vulnerabilities",
           "subpages": {
-        "proxy-identification": "Proxy Identification Guide"
+            "proxy-identification": "Proxy Identification Guide"
           }
         }
       }
@@ -135,7 +135,7 @@
         "category": "Cryptographic Security",
         "tags": [
           "Cryptography",
-          "Security Research", 
+          "Security Research",
           "Multi-Party Computation",
           "Privacy-Preserving",
           "Applied Cryptography",
@@ -144,11 +144,41 @@
           "Zero Knowledge"
         ],
         "structure": {
-        "mpc": "MPC Research",
-        "oblivious-transfer": "Oblivious Transfer",
-        "vole": "VOLE",
-        "quicksilver": "Quicksilver"
+          "mpc": "MPC Research",
+          "oblivious-transfer": "Oblivious Transfer",
+          "vole": "VOLE",
+          "quicksilver": "Quicksilver"
+        }
       }
+    },
+    "multisig-security": {
+      "title": "Multisig Security",
+      "description": "Automated detection of bad multisig wallet configurations. Quickly identify the security level of crucial DAO and treasury multisigs to find areas for improvement.",
+      "external": true,
+      "href": "https://safe.electisec.com/",
+      "authors": [
+        {
+          "name": "engn33r",
+          "twitter": "https://twitter.com/bl4ckb1rd71",
+          "avatar": "https://avatars.githubusercontent.com/engn33r"
+        }
+      ],
+      "seo": {
+        "title": "Electisec Multisig Security | Safe Wallet Hardening",
+        "description": "Detect insecure multisig wallet configurations automatically.",
+        "keywords": [
+          "multisig security",
+          "treasury management",
+          "safe wallet",
+          "gnosis safe",
+          "key management",
+          "wallet governance",
+          "multisig configuration",
+          "secure configuration",
+          "web3 security",
+          "smart contract security"
+        ],
+        "baseUrl": "https://safe.electisec.com/"
       }
     }
   }
