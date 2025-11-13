@@ -55,4 +55,4 @@ The progression:
 
 Each generation builds on the last. If you're building privacy-preserving systems, these primitives are essential.
 
-***Research by [Oba](https://github.com/obatirou) and [teddav](https://github.com/teddav) of [Electisec](https://electisec.com).*
+***Research by [Oba](https://github.com/obatirou) and [teddav](https://github.com/teddav) of [yAudit](https://yaudit.dev).*

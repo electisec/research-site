@@ -17,7 +17,7 @@
         }
       ],
       "seo": {
-        "title": "Electisec Proxies Research | Smart Contract Proxy Patterns & Security",
+        "title": "yAudit Proxies Research | Smart Contract Proxy Patterns & Security",
         "description": "Comprehensive security analysis of smart contract proxy patterns, upgradability mechanisms, and vulnerabilities with real-world hacks and practical testing procedures for auditors and developers.",
         "keywords": [
           "smart contracts",
@@ -25,7 +25,7 @@
           "Web3 security",
           "Ethereum",
           "blockchain",
-          "Electisec",
+          "yAudit",
           "delegatecall",
           "upgradeable contracts",
           "proxy vulnerabilities",
@@ -47,10 +47,10 @@
           "proxy implementation",
           "calldata forwarding"
         ],
-        "baseUrl": "https://research.electisec.com/proxies",
+        "baseUrl": "https://research.yaudit.dev/proxies",
         "ogImage": "/proxies/og-image.png",
         "twitterCard": "summary_large_image",
-        "author": "Electisec Research Team",
+        "author": "yAudit Research Team",
         "category": "Smart Contract Security",
         "tags": [
           "Smart Contracts",
@@ -99,14 +99,14 @@
         }
       ],
       "seo": {
-        "title": "Electisec MPC Research | Multi-Party Computation Security",
+        "title": "yAudit MPC Research | Multi-Party Computation Security",
         "description": "Advanced cryptographic research on multi-party computation protocols, oblivious transfer extensions, and privacy-preserving technologies bridging academic research with practical deployment.",
         "keywords": [
           "multi-party computation",
           "MPC protocols",
           "privacy-preserving computation",
           "cryptographic security",
-          "Electisec",
+          "yAudit",
           "security research",
           "blockchain privacy",
           "cryptography",
@@ -128,10 +128,10 @@
           "applied cryptography",
           "protocol security analysis"
         ],
-        "baseUrl": "https://research.electisec.com/mpc",
+        "baseUrl": "https://research.yaudit.dev/mpc",
         "ogImage": "/mpc/og-image.png",
         "twitterCard": "summary_large_image",
-        "author": "Electisec Research Team",
+        "author": "yAudit Research Team",
         "category": "Cryptographic Security",
         "tags": [
           "Cryptography",
@@ -155,7 +155,7 @@
       "title": "Multisig Security",
       "description": "Automated detection of bad multisig wallet configurations. Quickly identify the security level of crucial DAO and treasury multisigs to find areas for improvement.",
       "external": true,
-      "href": "https://safe.electisec.com/",
+      "href": "https://safe.yaudit.dev/",
       "authors": [
         {
           "name": "engn33r",
@@ -164,7 +164,7 @@
         }
       ],
       "seo": {
-        "title": "Electisec Multisig Security | Safe Wallet Hardening",
+        "title": "yAudit Multisig Security | Safe Wallet Hardening",
         "description": "Detect insecure multisig wallet configurations automatically.",
         "keywords": [
           "multisig security",
@@ -178,7 +178,7 @@
           "web3 security",
           "smart contract security"
         ],
-        "baseUrl": "https://safe.electisec.com/"
+        "baseUrl": "https://safe.yaudit.dev/"
       }
     }
   }

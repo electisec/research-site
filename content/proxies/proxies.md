@@ -1,4 +1,4 @@
-# Electisec Proxies Research
+# yAudit Proxies Research
 
 In Web3, the **Proxy** or **Proxy Delegate** is a [delegation pattern](https://en.wikipedia.org/wiki/Delegation_pattern) commonly used to introduce upgradability in smart contracts. While it can be extremely *powerful*, it is also *commonly misunderstood* - leading to incorrect implementations and security issues. 
 
@@ -18,4 +18,4 @@ Browse the documentation using the sidebar navigation or use the search function
 
 We welcome contributions from the community. If you have feedback, corrections, or would like to contribute to our research, please reach out through our official channels.
 
-***Research by [engn33r](https://twitter.com/bl4ckb1rd71) and [devtooligan](https://github.com/devtooligan) of [Electisec](https://electisec.com).*
+***Research by [engn33r](https://twitter.com/bl4ckb1rd71) and [devtooligan](https://github.com/devtooligan) of [yAudit](https://yaudit.dev).*

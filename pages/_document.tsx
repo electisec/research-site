@@ -9,29 +9,29 @@ export default function Document() {
         <meta name="description" content="ZK & Smart Contract Security" />
         <meta
           name="keywords"
-          content="Electisec, Zero Knowledge, Smart Contract Security, Blockchain Security, Ethereum, Cryptography, DeFi"
+          content="yAudit, Zero Knowledge, Smart Contract Security, Blockchain Security, Ethereum, Cryptography, DeFi"
         />
         <meta name="referrer" content="origin" />
-        <meta name="creator" content="Electisec Team" />
+        <meta name="creator" content="yAudit Team" />
         <meta name="robots" content="follow, index" />
 
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://research.electisec.com" />
-        <meta property="og:title" content="Electisec" />
+        <meta property="og:url" content="https://research.yaudit.dev" />
+        <meta property="og:title" content="yAudit" />
         <meta
           property="og:description"
           content="ZK & Smart Contract Security"
         />
-        <meta property="og:site_name" content="Electisec" />
+        <meta property="og:site_name" content="yAudit" />
         <meta
           property="og:image"
-          content="https://electisec.com/twitter.png"
+          content="https://yaudit.dev/twitter.png"
         />
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@electisec" />
-        <meta name="twitter:creator" content="@electisec" />
-        <meta name="twitter:image" content="https://electisec.com/twitter.png" />
+        <meta name="twitter:site" content="@yaudit" />
+        <meta name="twitter:creator" content="@yaudit" />
+        <meta name="twitter:image" content="https://yaudit.dev/twitter.png" />
 
         <link rel="icon" href="/favicon.ico" />
         <link

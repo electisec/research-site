@@ -6,7 +6,7 @@ import Link from "next/link";
 // Button component for consistent styling
 function Button({ text }: { text: string }) {
   return (
-    <button className="px-6 py-3 rounded-xl text-sm text-zinc-400 hover:text-green-600 hover:bg-white hover:bg-opacity-5">
+    <button className="px-6 py-3 text-sm text-zinc-400 hover:text-deepblue hover:bg-white hover:bg-white/5">
       {text}
     </button>
   );
@@ -34,10 +34,10 @@ const Navbar = () => {
       <nav className="w-full flex h-22 items-center max-w-6xl justify-between align-center top-0 py-6 m-auto">
         {/* Logo section */}
         <div className="flex flex-row gap-4 text-primary items-center text-xl ml-4">
-          <Link href="https://electisec.com/" className="flex-shrink-0">
+          <Link href="https://yaudit.dev/" className="flex-shrink-0">
             <img
               alt="Logo"
-              src="/logo.png"
+              src="/logo.svg"
               className="h-10 md:h-12 lg:h-10 w-auto min-w-[120px] md:min-w-[150px] lg:min-w-[180px]"
             />
           </Link>
@@ -45,7 +45,7 @@ const Navbar = () => {
 
         {/* Mobile menu button */}
         <button
-          className="px-4 py-2 rounded-xl lg:hidden mr-4 text-zinc-700 hover:text-green-600"
+          className="px-4 py-2 lg:hidden mr-4 text-zinc-700 hover:text-deepblue"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle mobile menu"
         >
@@ -54,28 +54,28 @@ const Navbar = () => {
 
         {/* Desktop menu */}
         <div className="hidden lg:flex flex-row items-center gap-1">
-          <Link href="https://reports.electisec.com/">
+          <Link href="https://reports.yaudit.dev/">
             <Button text="Reports" />
           </Link>
-          <Link href="https://blog.electisec.com/">
+          <Link href="https://blog.yaudit.dev/">
             <Button text="Blog" />
           </Link>
-          <Link href="https://research.electisec.com/">
-            <button className="px-6 py-3 rounded-xl text-sm hover:text-green-800 font-medium text-green-600">
+          <Link href="https://research.yaudit.dev/">
+            <button className="px-6 py-3 text-sm hover:text-deepblue font-medium text-deepblue">
               Research
             </button>
           </Link>
-          <Link href="https://electisec.com/fellowships">
+          <Link href="https://yaudit.dev/fellowships">
             <Button text="Fellowships" />
           </Link>
-          <Link href="https://electisec.com/services">
+          <Link href="https://yaudit.dev/services">
             <Button text="Services" />
           </Link>
-          <Link href="https://electisec.com/team">
+          <Link href="https://yaudit.dev/team">
             <Button text="Team" />
           </Link>
-          <Link href="https://electisec.com/contact-us">
-            <button className="px-8 py-3 rounded-xl text-sm bg-green-600 bg-opacity-20 text-green-800 hover:bg-opacity-30 hover:font-medium transition-all duration-300">
+          <Link href="https://yaudit.dev/contact-us">
+            <button className="px-8 py-3 text-sm bg-deepblue text-white hover:bg-white hover:text-deepblue hover:border hover:border-deepblue transition-all duration-700">
               Contact
             </button>
           </Link>
@@ -105,38 +105,38 @@ const Navbar = () => {
 
             {/* Menu items */}
             <div className="flex flex-col p-4">
-              <Link href="https://reports.electisec.com/" onClick={() => setMenuOpen(false)}>
-                <button className="w-full text-left p-4 rounded-lg text-gray-700 hover:text-green-600 hover:bg-gray-50 transition-colors">
+              <Link href="https://reports.yaudit.dev/" onClick={() => setMenuOpen(false)}>
+                <button className="w-full text-left p-4 text-gray-700 hover:text-deepblue hover:bg-gray-50 transition-colors">
                   Reports
                 </button>
               </Link>
-              <Link href="https://blog.electisec.com/" onClick={() => setMenuOpen(false)}>
-                <button className="w-full text-left p-4 rounded-lg text-gray-700 hover:text-green-600 hover:bg-gray-50 transition-colors">
+              <Link href="https://blog.yaudit.dev/" onClick={() => setMenuOpen(false)}>
+                <button className="w-full text-left p-4 text-gray-700 hover:text-deepblue hover:bg-gray-50 transition-colors">
                   Blog
                 </button>
               </Link>
-              <Link href="https://research.electisec.com/" onClick={() => setMenuOpen(false)}>
-                <button className="w-full text-left p-4 rounded-lg font-medium text-green-600 hover:text-green-700 hover:bg-green-50 transition-colors">
+              <Link href="https://research.yaudit.dev/" onClick={() => setMenuOpen(false)}>
+                <button className="w-full text-left p-4 font-medium text-deepblue hover:text-deepblue hover:bg-blue-50 transition-colors">
                   Research
                 </button>
               </Link>
-              <Link href="https://electisec.com/fellowships" onClick={() => setMenuOpen(false)}>
-                <button className="w-full text-left p-4 rounded-lg text-gray-700 hover:text-green-600 hover:bg-gray-50 transition-colors">
+              <Link href="https://yaudit.dev/fellowships" onClick={() => setMenuOpen(false)}>
+                <button className="w-full text-left p-4 text-gray-700 hover:text-deepblue hover:bg-gray-50 transition-colors">
                   Fellowships
                 </button>
               </Link>
-              <Link href="https://electisec.com/services" onClick={() => setMenuOpen(false)}>
-                <button className="w-full text-left p-4 rounded-lg text-gray-700 hover:text-green-600 hover:bg-gray-50 transition-colors">
+              <Link href="https://yaudit.dev/services" onClick={() => setMenuOpen(false)}>
+                <button className="w-full text-left p-4 text-gray-700 hover:text-deepblue hover:bg-gray-50 transition-colors">
                   Services
                 </button>
               </Link>
-              <Link href="https://electisec.com/team" onClick={() => setMenuOpen(false)}>
-                <button className="w-full text-left p-4 rounded-lg text-gray-700 hover:text-green-600 hover:bg-gray-50 transition-colors">
+              <Link href="https://yaudit.dev/team" onClick={() => setMenuOpen(false)}>
+                <button className="w-full text-left p-4 text-gray-700 hover:text-deepblue hover:bg-gray-50 transition-colors">
                   Team
                 </button>
               </Link>
-              <Link href="https://electisec.com/contact-us" onClick={() => setMenuOpen(false)}>
-                <button className="w-full text-left p-4 mt-2 rounded-lg bg-green-600 bg-opacity-10 text-green-700 hover:bg-opacity-20 font-medium transition-colors">
+              <Link href="https://yaudit.dev/contact-us" onClick={() => setMenuOpen(false)}>
+                <button className="w-full text-left p-4 mt-2 bg-deepblue text-white hover:bg-white hover:text-deepblue hover:border hover:border-deepblue font-medium transition-all duration-700">
                   Contact
                 </button>
               </Link>

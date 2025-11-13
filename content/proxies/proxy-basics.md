@@ -36,4 +36,4 @@ This pattern works by using a primary contract `A` to serve as the entry-point, 
 
 Addresses of the external contracts are stored in state variables that have restrictive setter functions, allowing only the owner to ever mutate their state. This allows `A` to update the state variables to point to new contract addresses whenever an upgrade is desired.
 
-One example of this "data separation pattern" reviewed by Electisec previously is [Tribe Turbo](https://github.com/fei-protocol/tribe-turbo/blob/main/src/TurboMaster.sol).
+One example of this "data separation pattern" reviewed by yAudit previously is [Tribe Turbo](https://github.com/fei-protocol/tribe-turbo/blob/main/src/TurboMaster.sol).

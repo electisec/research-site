@@ -52,7 +52,7 @@ export default function Sidebar({ category, currentSlug, isOpen = false, onClose
   };
 
   const renderSidebarItem = (slug: string, item: string | { title: string; subpages?: Record<string, string> }) => {
-    const activeClass = 'bg-emeraldlight bg-opacity-20 text-green-600 font-bold rounded-md';
+    const activeClass = 'bg-deepblue/20 text-deepblue font-bold';
     const inactiveClass = 'font-medium hover:text-title';
     const isActive = currentSlug === slug;
 
@@ -66,13 +66,13 @@ export default function Sidebar({ category, currentSlug, isOpen = false, onClose
     return (
       <div key={slug}>
         <div className="flex items-center">
-          <Link href={`/${slug}`} onClick={onClose} className={`flex-1 block px-4 py-3 text-sm rounded-lg transition-colors ${isActive ? activeClass : `text-zinc-700 ${inactiveClass}`}`}>{item.title}</Link>
+          <Link href={`/${slug}`} onClick={onClose} className={`flex-1 block px-4 py-3 text-sm transition-colors ${isActive ? activeClass : `text-zinc-700 ${inactiveClass}`}`}>{item.title}</Link>
           {hasSubpages && <button onClick={() => toggleExpanded(slug)} className="p-1 text-body hover:text-title">{isExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}</button>}
         </div>
         {hasSubpages && isExpanded && (
           <div className="ml-4 mt-2 space-y-1">
             {Object.entries(item.subpages!).map(([subSlug, subTitle]) => (
-              <Link key={subSlug} href={`/${subSlug}`} onClick={onClose} className={`block px-4 py-3 text-sm rounded-lg transition-colors ${currentSlug === subSlug ? activeClass : `text-zinc-500 ${inactiveClass}`}`}>{subTitle}</Link>
+              <Link key={subSlug} href={`/${subSlug}`} onClick={onClose} className={`block px-4 py-3 text-sm transition-colors ${currentSlug === subSlug ? activeClass : `text-zinc-500 ${inactiveClass}`}`}>{subTitle}</Link>
             ))}
           </div>
         )}
@@ -96,7 +96,7 @@ export default function Sidebar({ category, currentSlug, isOpen = false, onClose
             renderSidebarItem(slug, item)
           )}
         <Link href="/" onClick={onClose}>
-        <h2 className="my-10 text-md px-4 text-green-600 font-bold">←  Back to Research</h2>
+        <h2 className="my-10 text-md px-4 text-deepblue font-bold">←  Back to Research</h2>
       </Link>
       </div>
 
