@@ -1,4 +1,4 @@
-# Electisec Research Site
+# yAudit Research Site
 
 ## Adding New Content
 
@@ -21,10 +21,10 @@ Edit `lib/categories.json` to add your category:
         }
       ],
       "seo": {
-        "title": "SEO Title | Electisec Research",
+        "title": "SEO Title | yAudit Research",
         "description": "SEO description",
         "keywords": ["keyword1", "keyword2", "keyword3"],
-        "baseUrl": "https://research.electisec.com/your-category"
+        "baseUrl": "https://research.yaudit.dev/your-category"
       },
       "structure": {
         "your-category": "Category Home",
@@ -75,7 +75,7 @@ author: "Author Name"
 
 Content goes here...
 
-***Research by [Author](https://twitter.com/handle) of [Electisec](https://electisec.com).*
+***Research by [Author](https://twitter.com/handle) of [yAudit](https://yaudit.dev).*
 ```
 
 ### 5. Add Images
@@ -122,5 +122,5 @@ graph TD
 ````
 
 Your content will be automatically available at:
-- `research.electisec.com/your-category` (home.md)
-- `research.electisec.com/your-category/topic-1` (topic-1.md)
+- `research.yaudit.dev/your-category` (home.md)
+- `research.yaudit.dev/your-category/topic-1` (topic-1.md)

@@ -401,7 +401,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
           props: {
             title: frontMatter.title || categoryData.title,
             content: content || "",
-            author: frontMatter.author || "Electisec Team",
+            author: frontMatter.author || "yAudit Team",
             category: slug,
             slug: 'home',
             categoryContent,

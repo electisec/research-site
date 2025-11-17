@@ -30,13 +30,13 @@ const ResearchCard: React.FC<ResearchCategoryProps> = ({
   const getIcon = () => {
     switch (category) {
       case "proxies":
-        return <Shield className="h-12 w-12 text-emeraldlight" />;
+        return <Shield className="h-12 w-12 text-deepblue" />;
       case "mpc":
-        return <Target className="h-12 w-12 text-emeraldlight" />;
+        return <Target className="h-12 w-12 text-deepblue" />;
       case "multisig-security":
-        return <Key className="h-12 w-12 text-emeraldlight" />;
+        return <Key className="h-12 w-12 text-deepblue" />;
       default:
-        return <BookOpen className="h-12 w-12 text-emeraldlight" />;
+        return <BookOpen className="h-12 w-12 text-deepblue" />;
     }
   };
 
@@ -53,7 +53,7 @@ const ResearchCard: React.FC<ResearchCategoryProps> = ({
       <div className="flex items-center">
         {getIcon()}
         <div className="ml-4 text-left">
-          <h3 className="text-2xl font-bold text-black group-hover:text-emeraldlight transition-colors">
+          <h3 className="text-2xl font-bold text-black group-hover:text-deepblue transition-colors">
             {title}
           </h3>
         </div>
@@ -82,7 +82,7 @@ const ResearchCard: React.FC<ResearchCategoryProps> = ({
         </div>
       )}
 
-      <div className="mt-8 flex items-center text-emeraldlight font-medium group-hover:text-darkgreen">
+      <div className="mt-8 flex items-center text-deepblue font-medium group-hover:text-deepblue">
         <span>Explore {title}</span>
         <ArrowRight className="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
       </div>

@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Electisec Research</title>
+        <title>yAudit Research</title>
       </Head>
         <main className={spaceGrotesk.className}>
           <Navbar />

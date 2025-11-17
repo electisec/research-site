@@ -35,7 +35,7 @@ export default function Home({ categories }: HomeProps) {
       <main className="max-w-7xl mx-auto py-12 sm:px-4 lg:px-6">
         {/* Hero Section */}
         <div className="px-4 sm:px-0 mb-20 text-center">
-          <h1 className="text-6xl font-bold text-title mb-4">Explore <span className="text-green-600">Research</span></h1>
+          <h1 className="text-6xl font-bold text-title mb-4">Explore <span className="text-deepblue">Research</span></h1>
           <p className="text-xl text-body">Advanced security research for Web3 and cryptographic systems</p>
         </div>
 

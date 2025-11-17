@@ -19,13 +19,13 @@ export default function Footer() {
   return (
     <div className="h-full flex flex-col bg-foreground justify-center p-16 items-center relative">
       <img
-        alt="Electisec Logo"
-        src="/logo.png"
+        alt="yAudit Logo"
+        src="/logo.svg"
         className="h-[5rem]"
       />
       <DockDemo />
       <p className="text-sm text-body mt-10 text-center">
-        Copyright © 2025 Electisec. All rights reserved.
+        Copyright © 2025 yAudit. All rights reserved.
       </p>
     </div>
   );
@@ -96,37 +96,37 @@ export const Icons = {
 const DATA = {
   navbar: [
     {
-      href: "https://reports.electisec.com",
+      href: "https://reports.yaudit.dev",
       icon: BookCopyIcon,
       label: "Reports",
     },
-    { href: "https://research.electisec.com", icon: PencilIcon, label: "Research" },
+    { href: "https://research.yaudit.dev", icon: PencilIcon, label: "Research" },
   ],
   contact: {
     social: {
       GitHub: {
         name: "GitHub",
-        url: "https://www.github.com/electisec",
+        url: "https://www.github.com/yaudit",
         icon: Icons.github,
       },
       Telegram: {
         name: "Telegram",
-        url: "https://t.me/electisec",
+        url: "https://t.me/yaudit",
         icon: Icons.telegram,
       },
       X: {
         name: "X",
-        url: "https://www.x.com/electisec",
+        url: "https://www.x.com/yaudit",
         icon: Icons.x,
       },
       youtube: {
         name: "YouTube",
-        url: "https://www.youtube.com/@electisec",
+        url: "https://www.youtube.com/@yaudit",
         icon: Icons.youtube,
       },
       email: {
         name: "Send Email",
-        url: "mailto:hello@electisec.com",
+        url: "mailto:hello@yaudit.dev",
         icon: Icons.email,
       },
     },
