@@ -157,9 +157,9 @@ code {
 /* Hide mermaid error notifications */
 [id*="mermaidError"],
 [class*="mermaidError"],
-.error:has-text("syntax error"),
-.error:has-text("Parse error"),
-[role="alert"]:has-text("mermaid") {
+[class*="ext-error"],
+[id*="dmermaid"],
+.dmo.djs-container.derror {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;

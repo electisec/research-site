@@ -1,6 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
-
 import React from "react";
+import Image from "next/image";
 import { CalendarIcon, MailIcon, PencilIcon, BookCopyIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -18,10 +17,13 @@ export default function Footer() {
 
   return (
     <div className="h-full flex flex-col bg-foreground justify-center p-16 items-center relative">
-      <img
+      <Image
         alt="yAudit Logo"
         src="/logo.svg"
+        width={200}
+        height={80}
         className="h-[5rem]"
+        priority
       />
       <DockDemo />
       <p className="text-sm text-body mt-10 text-center">

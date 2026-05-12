@@ -1,7 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
-
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 // Button component for consistent styling
 function Button({ text }: { text: string }) {
@@ -35,10 +34,13 @@ const Navbar = () => {
         {/* Logo section */}
         <div className="flex flex-row gap-4 text-primary items-center text-xl ml-4">
           <Link href="https://yaudit.dev/" className="flex-shrink-0">
-            <img
+            <Image
               alt="Logo"
               src="/logo.svg"
+              width={180}
+              height={40}
               className="h-10 md:h-12 lg:h-10 w-auto min-w-[120px] md:min-w-[150px] lg:min-w-[180px]"
+              priority
             />
           </Link>
         </div>

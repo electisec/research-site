@@ -1,5 +1,5 @@
 import { GetStaticProps, GetStaticPaths } from "next";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import path from "path";
 import fs from "fs";
@@ -58,18 +58,22 @@ export default function ResearchPage({
   const articleRef = useRef<HTMLElement>(null);
   const router = useRouter();
 
-  // Parse content for search across all category pages
-  useEffect(() => {
-    const results = parseContentForSearch(content, categoryContent, slug, _title);
-    setSearchResults({ headings: results.headings, content: results.content });
+  const handleCopyHeading = useCallback((headingId: string) => {
+    copyHeadingLink(headingId, (id) => {
+      setCopiedLinkId(id);
+      setTimeout(() => setCopiedLinkId(null), 2000);
+    });
+  }, []);
 
-    // Update the DOM with processed content
-    setTimeout(() => {
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      const results = parseContentForSearch(content, categoryContent, slug, _title);
+      setSearchResults({ headings: results.headings, content: results.content });
+
       const articleElement = document.querySelector('.prose');
       if (articleElement) {
         articleElement.innerHTML = results.processedContent;
 
-        // Add click listeners to heading link icons
         const linkIcons = articleElement.querySelectorAll('.heading-link');
         linkIcons.forEach((icon) => {
           icon.addEventListener('click', (e) => {
@@ -77,24 +81,19 @@ export default function ResearchPage({
             e.stopPropagation();
             const headingId = (e.currentTarget as HTMLElement).getAttribute('data-heading-id');
             if (headingId) {
-              copyHeadingLink(headingId, (id) => {
-                setCopiedLinkId(id);
-                setTimeout(() => setCopiedLinkId(null), 2000);
-              });
+              handleCopyHeading(headingId);
             }
           });
         });
 
-        // Handle anchor navigation from URL
         handleAnchorNavigation();
 
-        // Initialize mermaid diagrams
         if (typeof window !== 'undefined' && (window as any).initMermaid) {
           (window as any).initMermaid();
         }
       }
-    }, 100);
-  }, [content, categoryContent, slug, _title]);
+    });
+  }, [content, categoryContent, slug, _title, handleCopyHeading]);
 
   // Handle hash navigation on route changes
   useEffect(() => {
@@ -133,8 +132,10 @@ export default function ResearchPage({
     if (articleRef.current) {
       articleRef.current.scrollTop = 0;
     }
-    // Close sidebar on mobile when navigating
-    setIsSidebarOpen(false);
+  }, [slug]);
+
+  useEffect(() => {
+    queueMicrotask(() => setIsSidebarOpen(false));
   }, [slug]);
 
   // Close dropdown when clicking outside
@@ -177,7 +178,7 @@ export default function ResearchPage({
       }, 100);
     } else {
       // Different page - navigate with anchor
-      window.location.href = `/${resultSlug}#${id}`;
+      router.push(`/${resultSlug}#${id}`);
     }
   };
 
@@ -309,7 +310,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       return;
     }
 
-    const categoryPath = path.join(process.cwd(), categoryData.contentPath);
+    const categoryPath = path.join(/*turbopackIgnore: true*/ process.cwd(), categoryData.contentPath);
 
     if (fs.existsSync(categoryPath)) {
       const filenames = fs.readdirSync(categoryPath);
@@ -321,8 +322,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     }
   });
 
-  // Add files from root content directory
-  const contentDirectory = path.join(process.cwd(), "content");
+  const contentDirectory = path.join(/*turbopackIgnore: true*/ process.cwd(), "content");
   if (fs.existsSync(contentDirectory)) {
     const rootFiles = fs.readdirSync(contentDirectory);
     rootFiles
@@ -361,8 +361,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         };
       }
 
-      // This is a category page, load home.md from the category directory
-      const categoryPath = path.join(process.cwd(), categoryData.contentPath);
+      const categoryPath = path.join(/*turbopackIgnore: true*/ process.cwd(), categoryData.contentPath);
       const homeFilePath = path.join(categoryPath, 'home.md');
 
       if (fs.existsSync(homeFilePath)) {
@@ -421,7 +420,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         continue;
       }
 
-      const categoryPath = path.join(process.cwd(), categoryInfo.contentPath);
+      const categoryPath = path.join(/*turbopackIgnore: true*/ process.cwd(), categoryInfo.contentPath);
       const potentialFilePath = path.join(categoryPath, `${slug}.md`);
 
       if (fs.existsSync(potentialFilePath)) {
@@ -431,9 +430,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       }
     }
 
-    // If not found in category folders, check root content folder
     if (!filePath) {
-      const contentDirectory = path.join(process.cwd(), "content");
+      const contentDirectory = path.join(/*turbopackIgnore: true*/ process.cwd(), "content");
       const potentialFilePath = path.join(contentDirectory, `${slug}.md`);
       if (fs.existsSync(potentialFilePath)) {
         filePath = potentialFilePath;
@@ -462,7 +460,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     if (category && categoriesData.categories[category as keyof typeof categoriesData.categories]) {
       const categoryInfo = categoriesData.categories[category as keyof typeof categoriesData.categories];
       if (categoryInfo && !isExternalCategory(categoryInfo) && hasContentPath(categoryInfo)) {
-        const categoryPath = path.join(process.cwd(), categoryInfo.contentPath);
+        const categoryPath = path.join(/*turbopackIgnore: true*/ process.cwd(), categoryInfo.contentPath);
 
         if (fs.existsSync(categoryPath)) {
           const filenames = fs.readdirSync(categoryPath);

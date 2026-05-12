@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Shield, BookOpen, Target, ArrowRight, Key } from "lucide-react";
 
 interface Author {
@@ -70,10 +71,12 @@ const ResearchCard: React.FC<ResearchCategoryProps> = ({
           <div className="flex items-center space-x-3">
             {authors.map((author, index) => (
               <div key={index} className="flex items-center space-x-2">
-                <img
+                <Image
                   src={author.avatar}
                   alt={author.name}
-                  className="w-8 h-8 rounded-full"
+                  width={32}
+                  height={32}
+                  className="rounded-full"
                 />
                 <span className="text-sm text-body">{author.name}</span>
               </div>
