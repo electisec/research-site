@@ -1,8 +1,5 @@
 ---
-layout: default
 title: Proxies Table
-nav_order: 2
-parent: Proxies Deep Dive
 ---
 
 # Proxies Table

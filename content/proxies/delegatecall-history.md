@@ -1,8 +1,5 @@
 ---
-layout: default
 title: History of Callcode and Delegatecall
-nav_order: 3
-parent: Proxies Deep Dive
 ---
 
 # History of Callcode and Delegatecall

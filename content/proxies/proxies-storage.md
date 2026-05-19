@@ -1,8 +1,5 @@
 ---
-layout: default
 title: Proxies Storage
-nav_order: 1
-parent: Proxies Deep Dive
 ---
 
 # Proxies Storage

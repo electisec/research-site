@@ -1,7 +1,5 @@
 ---
-layout: default
 title: Proxy Basics
-nav_order: 2
 ---
 
 # Proxy Basics
