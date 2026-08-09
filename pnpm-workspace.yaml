@@ -3,3 +3,7 @@ blockExoticSubdeps: true
 allowBuilds:
   sharp: true
   unrs-resolver: true
+overrides:
+  # 3.10.1 was published without provenance attestation (supply-chain trust
+  # downgrade vs 3.10.0); pin to the last provenance-attested 3.x release.
+  eslint-import-resolver-typescript: 3.10.0
